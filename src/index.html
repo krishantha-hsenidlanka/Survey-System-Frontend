@@ -2,12 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>SurveySystemFrontend</title>
+  <title>Survey Creator for Angular</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
+<body style="margin: 0; padding: 0;">
   <app-root></app-root>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var banner = document.querySelector('.svc-creator__banner');
+      if (banner) {
+        // To hide the banner
+        // banner.style.visibility = 'hidden';
+        banner.remove();
+  
+        // OR to completely remove the banner from the DOM
+        // banner.remove();
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var element = document.querySelector('.svc-creator__area--with-banner');
+      if (element) {
+        element.classList.remove('svc-creator__area--with-banner');
+        element.classList.add('svc-creator__area');
+      }
+    });
+  </script>
 </body>
 </html>

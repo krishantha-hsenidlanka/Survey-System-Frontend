@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary: blue;
+    --secondary: rgb(128, 0, 122);
+    /* --foreground: yellow; */
+    --red: rgb(88, 24, 24);
+    --yellow: rgb(147, 241, 118);
+
+
+  }
