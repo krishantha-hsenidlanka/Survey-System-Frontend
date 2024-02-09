@@ -28,6 +28,11 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
   logout(): void {
     localStorage.removeItem('token');
   }
