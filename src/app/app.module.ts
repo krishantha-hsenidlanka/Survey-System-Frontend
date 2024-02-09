@@ -17,9 +17,18 @@ import { LoginComponent } from './modules/auth/login/login.component';
 import { RouterOutlet } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './modules/auth/register/register.component';
+import { AuthService } from './core/auth.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './core/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent,
+  ],
   imports: [
     RouterOutlet,
     BrowserModule,
@@ -31,10 +40,18 @@ import { RegisterComponent } from './modules/auth/register/register.component';
     ReactiveFormsModule,
     FormlyMaterialModule,
     MatCardModule,
-    AppRoutingModule
-    
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

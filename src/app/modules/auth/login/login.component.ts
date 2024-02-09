@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
+import { AuthService } from '../../../core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,27 @@ export class LoginComponent {
     },
   ];
 
+  constructor(private authService: AuthService) {}
+
+
   onSubmit() {
-    // Add login logic here
+    const credentials = {
+      username: (this.model as { username: string })['username'],
+      password: (this.model as { password: string })['password'],
+    };
+
+    this.authService.login(credentials).subscribe(
+      (response) => {
+        // Handle successful login
+        console.log(response);
+        // Redirect or perform additional actions as needed
+      },
+      (error) => {
+        // Handle login error
+        console.error(error);
+        alert('Login failed. Please try again.');
+        // Display error message or take appropriate action
+      }
+    );
   }
 }
