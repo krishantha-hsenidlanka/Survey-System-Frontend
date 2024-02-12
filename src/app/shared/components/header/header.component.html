@@ -1,8 +1,17 @@
+<!-- header.component.html -->
 <mat-toolbar color="primary">
-    <span>Survey App</span>
-    <span class="flex-grow"></span>
-    <button mat-icon-button>
-      <mat-icon>person</mat-icon>
+  <span>Survey App</span>
+  <span class="flex-grow"></span>
+  <ng-container *ngIf="isLoggedIn(); else loggedOutTemplate">
+    <!-- Content for logged-in users -->
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
     </button>
-  </mat-toolbar>
-  
+  </ng-container>
+  <ng-template #loggedOutTemplate>
+    <!-- Content for logged-out users -->
+    <button mat-icon-button>
+      <mat-icon>login</mat-icon>
+    </button>
+  </ng-template>
+</mat-toolbar>

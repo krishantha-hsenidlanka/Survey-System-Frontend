@@ -20,6 +20,8 @@ import { RegisterComponent } from './modules/auth/register/register.component';
 import { AuthService } from './core/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,11 @@ import { AuthInterceptor } from './core/auth.interceptor';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
+    MatOptionModule,
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyMaterialModule,
+    MatFormFieldModule,
     MatCardModule,
     AppRoutingModule,
     HttpClientModule,
