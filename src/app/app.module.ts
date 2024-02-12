@@ -22,6 +22,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import { CreateSurveyComponent } from './modules/survey/create-survey/create-survey.component';
+import { CreateQuestionFormComponent } from './modules/survey/create-question-form/create-question-form.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MatOptionModule } from '@angular/material/core';
     FooterComponent,
     LoginComponent,
     RegisterComponent,
+    CreateSurveyComponent,
+    CreateQuestionFormComponent,
   ],
   imports: [
     RouterOutlet,

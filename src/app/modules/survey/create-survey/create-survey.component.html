@@ -1,0 +1,40 @@
+<mat-card class="w-96 mx-auto mt-8">
+  <mat-card-header>
+    <mat-card-title>Create Survey</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <formly-form
+        [form]="form"
+        [fields]="fields"
+        [model]="model"
+      ></formly-form>
+      <button mat-raised-button color="primary" type="submit">
+        Submit Survey
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        type="button"
+        (click)="addQuestionForm()"
+      >
+        Add Question
+      </button>
+
+      <!-- Loop through added questions and provide input for options -->
+      <div *ngFor="let question of questions; let i = index">
+        <app-create-question-form
+          [index]="i"
+          (addOptions)="addOptions(i, $event)"
+        ></app-create-question-form>
+        <input
+          *ngIf="question.model.questions.type === 'Checklist'"
+          placeholder="Options"
+          (change)="addOptions(i, $event)"
+        />
+      </div>
+    </form>
+    <div #questionContainer></div>
+  </mat-card-content>
+</mat-card>
