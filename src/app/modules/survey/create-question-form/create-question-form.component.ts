@@ -15,6 +15,8 @@ export class CreateQuestionFormComponent {
 
   questionTypes = [
     { label: 'Checklist', value: 'Checklist' },
+    { label: 'Text', value: 'Text' },
+    { label: 'Number', value: 'Number' },
     // Add other question types as needed
   ];
 

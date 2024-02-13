@@ -26,47 +26,7 @@ export class CreateSurveyComponent {
         label: 'Survey Title',
         required: true,
       },
-    },
-    {
-      key: 'questions',
-      type: 'repeat',
-      templateOptions: {
-        addText: 'Add Question',
-      },
-      fieldArray: {
-        fieldGroup: [
-          {
-            key: 'text',
-            type: 'input',
-            templateOptions: {
-              label: 'Question Text',
-              required: true,
-            },
-          },
-          {
-            key: 'type',
-            type: 'select',
-            templateOptions: {
-              label: 'Question Type',
-              options: [
-                { label: 'Checklist', value: 'Checklist' },
-                // Add other question types as needed
-              ],
-              required: true,
-            },
-          },
-          {
-            key: 'options',
-            type: 'input',
-            templateOptions: {
-              label: 'Options (Comma-separated)',
-            },
-            hideExpression:
-              'model.questions && model.questions.type !== "Checklist"',
-          },
-        ],
-      },
-    },
+    }
   ];
 
   constructor(
