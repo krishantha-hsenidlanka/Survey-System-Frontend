@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+// ...
 
 @Component({
   selector: 'app-create-question-form',
@@ -8,11 +9,9 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   styleUrls: ['./create-question-form.component.css'],
 })
 export class CreateQuestionFormComponent {
-  @Input()
-  index!: number;
-
-  form = new FormGroup({});
-  model: any = {};
+  @Input() index!: number;
+  @Input() form!: FormGroup;
+  @Input() model: any;
 
   questionTypes = [
     { label: 'Checklist', value: 'Checklist' },
@@ -45,6 +44,7 @@ export class CreateQuestionFormComponent {
       },
       hideExpression: '!model.questions || model.questions.type !== "Checklist"',
     },
-    // Add other fields as needed for different question types
   ];
+
+  // ...
 }

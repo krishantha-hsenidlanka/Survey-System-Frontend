@@ -10,9 +10,16 @@
         [fields]="fields"
         [model]="model"
       ></formly-form>
-      <button mat-raised-button color="primary" type="submit">
-        Submit Survey
-      </button>
+
+      <!-- Loop through added questions and provide input for options -->
+      <div *ngFor="let question of questions; let i = index">
+        <app-create-question-form
+          [index]="i"
+          [form]="form"
+          [model]="model"
+          (addOptions)="addOptions(i, $event)"
+        ></app-create-question-form>
+      </div>
       <button
         mat-raised-button
         color="accent"
@@ -22,19 +29,11 @@
         Add Question
       </button>
 
-      <!-- Loop through added questions and provide input for options -->
-      <div *ngFor="let question of questions; let i = index">
-        <app-create-question-form
-          [index]="i"
-          (addOptions)="addOptions(i, $event)"
-        ></app-create-question-form>
-        <input
-          *ngIf="question.model.questions.type === 'Checklist'"
-          placeholder="Options"
-          (change)="addOptions(i, $event)"
-        />
-      </div>
+      <button mat-raised-button color="primary" type="submit">
+        Submit Survey
+      </button>
     </form>
     <div #questionContainer></div>
+
   </mat-card-content>
 </mat-card>

@@ -62,7 +62,7 @@ export class CreateSurveyComponent {
               label: 'Options (Comma-separated)',
             },
             hideExpression:
-              '!model.questions || model.questions.type !== "MCQ"',
+              'model.questions && model.questions.type !== "Checklist"',
           },
         ],
       },
@@ -75,22 +75,17 @@ export class CreateSurveyComponent {
   ) {}
 
   addQuestionForm() {
-    const factory = this.componentFactoryResolver.resolveComponentFactory(
-      CreateQuestionFormComponent
-    );
-    const componentRef = this.viewContainerRef.createComponent(factory);
-    componentRef.instance.index = this.questions.length;
-    this.questions.push(componentRef.instance);
+    this.questions.push({});
   }
 
   // Add a function to handle options for a specific question
   addOptions(index: number, event: any): void {
     if (event.target) {
-      this.questions[index].model.questions.options = event.target.value
+      this.questions[index].options = event.target.value
         .split(',')
         .map((option: string) => option.trim());
     } else {
-      this.questions[index].model.questions.options = event
+      this.questions[index].options = event
         .split(',')
         .map((option: string) => option.trim());
     }
@@ -98,9 +93,6 @@ export class CreateSurveyComponent {
 
   onSubmit() {
     // Process the survey data, including questions
-    console.log(
-      this.model,
-      this.questions.map((question) => question.model)
-    );
+    console.log(this.model, this.questions);
   }
 }
