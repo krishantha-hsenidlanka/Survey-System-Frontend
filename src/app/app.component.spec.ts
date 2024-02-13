@@ -23,13 +23,13 @@ describe('AppComponent', () => {
   it(`should have as title 'Survey-System-Frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Survey-System-Frontend');
+    expect(app.title).toEqual('get-started-creator-angular');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Survey-System-Frontend');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('get-started-creator-angular app is running!');
   });
 });

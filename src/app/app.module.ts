@@ -24,6 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { CreateSurveyComponent } from './modules/survey/create-survey/create-survey.component';
 import { CreateQuestionFormComponent } from './modules/survey/create-question-form/create-question-form.component';
+import { SurveyCreatorModule } from 'survey-creator-angular';
+import { SurveyCreatorComponent } from './survey-creator/survey-creator.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { CreateQuestionFormComponent } from './modules/survey/create-question-fo
     RegisterComponent,
     CreateSurveyComponent,
     CreateQuestionFormComponent,
+    SurveyCreatorComponent
+
   ],
   imports: [
     RouterOutlet,
@@ -50,6 +54,7 @@ import { CreateQuestionFormComponent } from './modules/survey/create-question-fo
     MatCardModule,
     AppRoutingModule,
     HttpClientModule,
+    SurveyCreatorModule,
   ],
   providers: [
     provideAnimationsAsync(),
