@@ -5,7 +5,7 @@ import { RegisterComponent } from './modules/auth/register/register.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AuthGuard } from './core/auth.guard';
 import { NoAuthGuard } from './core/no-auth.guard';
-import { CreateSurveyComponent } from './modules/survey/create-survey/create-survey.component';
+import { SurveyCreatorComponent } from './modules/survey/survey-creator/survey-creator.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'create-survey',
-    component: CreateSurveyComponent,
+    component: SurveyCreatorComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
