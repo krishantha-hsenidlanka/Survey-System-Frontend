@@ -1,6 +1,6 @@
 <!-- header.component.html -->
 <mat-toolbar color="primary">
-  <span>Survey App</span>
+  <span (click)="navigateToHome()" class="cursor-pointer">Survey App</span>
   <span class="flex-grow"></span>
   <ng-container *ngIf="isLoggedIn(); else loggedOutTemplate">
     <!-- Content for logged-in users -->

@@ -24,6 +24,11 @@ const routes: Routes = [
     component: SurveyCreatorComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'survey/:id',
+    component: SurveyCreatorComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { SurveyCreatorModel } from "survey-creator-core";
+import { SurveyService } from "../../../shared/services/survey.service";
 
 const creatorOptions = {
   // showLogicTab: true,
@@ -33,19 +35,60 @@ const defaultJson = {
 })
 export class SurveyCreatorComponent implements OnInit {
   surveyCreatorModel: SurveyCreatorModel;
+  surveyId: string | undefined;
   
-  constructor() {
+
+  constructor( private surveyService: SurveyService,
+    private route: ActivatedRoute) {
     this.surveyCreatorModel = new SurveyCreatorModel(creatorOptions);
   }
   ngOnInit() {
+
     const creator = new SurveyCreatorModel(creatorOptions);
-    creator.text = window.localStorage.getItem("survey-json") || JSON.stringify(defaultJson);
+
+
+    this.route.params.subscribe((params) => {
+      this.surveyId = params['id'];
+
+      if (this.surveyId) {
+        // Fetch survey by ID and load into the creator
+        this.surveyService.getSurveyById(this.surveyId).subscribe(
+          (surveyData) => {
+            creator.text = JSON.stringify(surveyData) || JSON.stringify(defaultJson);
+            console.log(surveyData);
+            console.log("Creator Text", creator.text);
+          },
+          (error) => {
+            console.error('Error fetching survey:', error);
+          }
+        );
+      }
+    });
     
 
     creator.saveSurveyFunc = (saveNo: number, callback: Function) => { 
-      window.localStorage.setItem("survey-json", creator.text);
-      callback(saveNo, true);
-      console.log(creator.JSON);
+
+      const surveyData = creator.JSON;
+
+      if (this.surveyId) {
+        this.surveyService.updateSurvey(this.surveyId, surveyData).subscribe(
+          (response) => {
+            callback(saveNo, true);
+            console.log('Survey updated successfully:', response);
+          },
+          (error) => {
+            console.error('Error updating survey:', error);
+          }
+        );
+      } else {
+        // Implement logic to create a new survey
+      }
+
+
+
+      // window.localStorage.setItem("survey-json", creator.text);
+      // callback(saveNo, true);
+      // console.log(creator.JSON);
       // saveSurveyJson(
       //     "https://your-web-service.com/",
       //     creator.JSON,
@@ -75,6 +118,33 @@ export class SurveyCreatorComponent implements OnInit {
     // });
 
     this.surveyCreatorModel = creator;
+
+
+    
+  }
+
+  
+  ngAfterViewInit() {
+    // Execute additional code after the view has initialized
+    this.modifySurveyCreatorView();
+  }
+
+  private modifySurveyCreatorView() {
+    var element = document.querySelector('.svc-creator__area--with-banner');
+    if (element) {
+      element.classList.remove('svc-creator__area--with-banner');
+      element.classList.add('svc-creator__area');
+    }
+
+    var banner = document.querySelector('.svc-creator__banner');
+    if (banner) {
+      // To hide the banner
+      // banner.style.visibility = 'hidden';
+
+      // OR to completely remove the banner from the DOM
+      banner.remove();
+    }
+    console.log("Modify Survey Creator View");
   }
 }
 

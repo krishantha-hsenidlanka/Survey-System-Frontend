@@ -1,1 +1,43 @@
-<p>dashboard works!</p>
+
+<div class="container mx-auto p-4">
+
+    <button mat-raised-button color="primary" class="mb-4" (click)="createNewSurvey()">
+        <mat-icon class="mr-2">post_add</mat-icon>
+        New Survey
+
+    </button>
+    
+
+<ng-container *ngIf="surveys$ | async as surveys; else loading">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div *ngFor="let survey of surveys" class="survey-item" (click)="navigateToSurvey(survey.id)">
+        <div class="flex flex-col items-center justify-center">
+          <mat-icon class="text-8xl text-blue-800 mb-2 h-auto w-auto survey-icon">description</mat-icon>
+          <div class="text-lg font-bold text-gray-800 mb-2 text-center">{{ survey.title }}</div>
+          <div class="flex justify-between items-center">
+            <button mat-icon-button>
+              <mat-icon class="text-gray-500">remove_red_eye</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon class="text-green-500">analytics</mat-icon>
+              </button>
+            <button mat-icon-button>
+              <mat-icon class="text-blue-500">edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon class="text-red-500">delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<ng-template #loading>
+<div class=" flex justify-center items-center h-screen">
+    <mat-spinner></mat-spinner>
+
+</div>
+
+
+</ng-template>
