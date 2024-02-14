@@ -6,6 +6,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AuthGuard } from './core/auth.guard';
 import { NoAuthGuard } from './core/no-auth.guard';
 import { SurveyCreatorComponent } from './modules/survey/survey-creator/survey-creator.component';
+import { SurveyViewerComponent } from './modules/survey/survey-viewer/survey-viewer.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -25,8 +26,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'survey/:id',
+    path: 'survey/edit/:id',
     component: SurveyCreatorComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'survey/:id',
+    component: SurveyViewerComponent,
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },

@@ -27,6 +27,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SurveyCreatorModule } from 'survey-creator-angular';
 import { SurveyCreatorComponent } from './modules/survey/survey-creator/survey-creator.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { SurveyViewerComponent } from './modules/survey/survey-viewer/survey-viewer.component';
+import { SurveyModule } from 'survey-angular-ui';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     SurveyCreatorComponent,
-    DashboardComponent
+    DashboardComponent,
+    SurveyViewerComponent,
 
   ],
   imports: [
@@ -55,6 +58,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
     AppRoutingModule,
     HttpClientModule,
     SurveyCreatorModule,
+    SurveyModule
   ],
   providers: [
     provideAnimationsAsync(),

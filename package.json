@@ -23,7 +23,7 @@
     "@ngx-formly/core": "^6.0.0",
     "@ngx-formly/material": "^6.0.0",
     "rxjs": "~7.8.0",
-    "survey-angular-ui": "latest",
+    "survey-angular-ui": "^1.9.129",
     "survey-core": "latest",
     "survey-creator-angular": "latest",
     "survey-creator-core": "latest",

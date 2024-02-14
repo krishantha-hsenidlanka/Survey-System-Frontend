@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   }
 
   navigateToSurvey(surveyId: string) {
-    this.router.navigate(['/survey', surveyId]);
+    this.router.navigate(['/survey/edit/', surveyId]);
   }
 
   createNewSurvey() {
