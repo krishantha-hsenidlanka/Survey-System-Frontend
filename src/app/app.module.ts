@@ -23,12 +23,15 @@ import { AuthInterceptor } from './core/auth.interceptor';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { SurveyCreatorModule } from 'survey-creator-angular';
 import { SurveyCreatorComponent } from './modules/survey/survey-creator/survey-creator.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SurveyViewerComponent } from './modules/survey/survey-viewer/survey-viewer.component';
 import { SurveyModule } from 'survey-angular-ui';
+import { ViewResponseComponent } from './modules/survey/view-response/view-response.component';
+import { ViewSurveyAnalyticsComponent } from './modules/survey/view-survey-analytics/view-survey-analytics.component';
+import { ViewResponsePageComponent } from './modules/survey/view-response-page/view-response-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +42,9 @@ import { SurveyModule } from 'survey-angular-ui';
     SurveyCreatorComponent,
     DashboardComponent,
     SurveyViewerComponent,
+    ViewResponseComponent,
+    ViewSurveyAnalyticsComponent,
+    ViewResponsePageComponent,
 
   ],
   imports: [
@@ -49,6 +55,7 @@ import { SurveyModule } from 'survey-angular-ui';
     MatToolbarModule,
     MatIconModule,
     MatOptionModule,
+    MatTabsModule,
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyMaterialModule,

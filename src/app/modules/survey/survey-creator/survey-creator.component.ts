@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SurveyCreatorModel } from "survey-creator-core";
-import { SurveyService } from "../../../shared/services/survey.service";
+import { ApiService } from "../../../shared/services/api.service";
 
 const creatorOptions = {
   // showLogicTab: true,
@@ -38,7 +38,7 @@ export class SurveyCreatorComponent implements OnInit {
   surveyId: string | undefined;
   
 
-  constructor( private surveyService: SurveyService,
+  constructor( private ApiService: ApiService,
     private route: ActivatedRoute) {
     this.surveyCreatorModel = new SurveyCreatorModel(creatorOptions);
   }
@@ -52,7 +52,7 @@ export class SurveyCreatorComponent implements OnInit {
 
       if (this.surveyId) {
         // Fetch survey by ID and load into the creator
-        this.surveyService.getSurveyById(this.surveyId).subscribe(
+        this.ApiService.getSurveyById(this.surveyId).subscribe(
           (surveyData) => {
             creator.text = JSON.stringify(surveyData) || JSON.stringify(defaultJson);
             console.log(surveyData);
@@ -71,7 +71,7 @@ export class SurveyCreatorComponent implements OnInit {
       const surveyData = creator.JSON;
 
       if (this.surveyId) {
-        this.surveyService.updateSurvey(this.surveyId, surveyData).subscribe(
+        this.ApiService.updateSurvey(this.surveyId, surveyData).subscribe(
           (response) => {
             callback(saveNo, true);
             console.log('Survey updated successfully:', response);
