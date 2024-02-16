@@ -1,43 +1,59 @@
-
 <div class="container mx-auto p-4">
 
-    <button mat-raised-button color="primary" class="mb-4" (click)="createNewSurvey()">
-        <mat-icon class="mr-2">post_add</mat-icon>
-        New Survey
+  <button mat-raised-button color="primary" class="mb-4" (click)="createNewSurvey()">
+    <mat-icon class="mr-2">post_add</mat-icon>
+    New Survey
+  </button>
 
-    </button>
-    
-
-<ng-container *ngIf="surveys$ | async as surveys; else loading">
+  <ng-container *ngIf="surveys$ | async as surveys; else loading">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
       <div *ngFor="let survey of surveys" class="survey-item">
         <div class="flex flex-col items-center justify-center">
-          <mat-icon class="text-8xl text-blue-800 mb-2 h-auto w-auto survey-icon" (click)="navigateToSurvey(survey.id)">description</mat-icon>
+          <mat-icon class="text-8xl text-blue-600 mb-2 h-auto w-auto survey-icon" (click)="navigateToSurvey(survey.id)">description</mat-icon>
           <div class="text-lg font-bold text-gray-800 mb-2 text-center">{{ survey.title }}</div>
-          <div class="flex justify-between items-center">
-            <button mat-icon-button (click)="navigateToViewSurvey(survey.id)">
-              <mat-icon class="text-gray-500"  >remove_red_eye</mat-icon>
+          <div class="flex justify-between items-center text-cyan-900">
+            <button mat-icon-button (click)="navigateToViewSurvey(survey.id)" title="View Survey">
+              <mat-icon>remove_red_eye</mat-icon>
             </button>
-            <button mat-icon-button (click)="navigateToSurveyResponses(survey.id)">
-                <mat-icon class="text-green-500">analytics</mat-icon>
+            <button mat-icon-button (click)="navigateToSurveyResponses(survey.id)" title="Responses and Analytics">
+              <mat-icon>analytics</mat-icon>
+            </button>
+            <!-- Add menu button and mat-menu inside ngFor -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Survey Options">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="navigateToViewSurvey(survey.id)">
+                <mat-icon>remove_red_eye</mat-icon>
+                <span>View Survey</span>
               </button>
-            <button mat-icon-button (click)="navigateToSurvey(survey.id)">
-              <mat-icon class="text-blue-500" >edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="deleteSurvey(survey.id)">
-              <mat-icon class="text-red-500">delete</mat-icon>
-            </button>
+              <button mat-menu-item (click)="navigateToSurvey(survey.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit Survey</span>
+              </button>
+              <button mat-menu-item (click)="navigateToSurveyResponses(survey.id)">
+                <mat-icon>analytics</mat-icon>
+                <span>Survey Analytics</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>group</mat-icon>
+                <span>Access Roles</span>
+              </button>
+              <button mat-menu-item (click)="deleteSurvey(survey.id)">
+                <mat-icon color="warn">delete</mat-icon>
+                <span>Delete Survey</span>
+              </button>
+            </mat-menu>
           </div>
         </div>
       </div>
     </div>
   </ng-container>
+
 </div>
+
 <ng-template #loading>
-<div class=" flex justify-center items-center h-screen">
+  <div class="flex justify-center items-center h-screen">
     <mat-spinner></mat-spinner>
-
-</div>
-
-
+  </div>
 </ng-template>

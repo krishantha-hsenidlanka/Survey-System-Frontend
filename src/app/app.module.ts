@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { LoginComponent } from './modules/auth/login/login.component';
@@ -32,6 +33,7 @@ import { SurveyModule } from 'survey-angular-ui';
 import { ViewResponseComponent } from './modules/survey/view-response/view-response.component';
 import { ViewSurveyAnalyticsComponent } from './modules/survey/view-survey-analytics/view-survey-analytics.component';
 import { ViewResponsePageComponent } from './modules/survey/view-response-page/view-response-page.component';
+import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +47,7 @@ import { ViewResponsePageComponent } from './modules/survey/view-response-page/v
     ViewResponseComponent,
     ViewSurveyAnalyticsComponent,
     ViewResponsePageComponent,
+    AdminDashboardComponent,
 
   ],
   imports: [
@@ -56,6 +59,7 @@ import { ViewResponsePageComponent } from './modules/survey/view-response-page/v
     MatIconModule,
     MatOptionModule,
     MatTabsModule,
+    MatMenuModule,
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyMaterialModule,

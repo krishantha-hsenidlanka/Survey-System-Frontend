@@ -11,6 +11,12 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isAuthenticated()) {
+      console.log("Is Authenticated: ", this.authService.isAuthenticated(), "\nis Admin: ", this.authService.checkAdminStatus() );
+      if (route.data['admin'] && !this.authService.checkAdminStatus()) {
+        console.log("Is User Admin: ", this.authService.checkAdminStatus());
+        this.router.navigate(['/dashboard']);
+        return false;
+      }
       return true;
     }
 

@@ -10,6 +10,7 @@ import { SurveyViewerComponent } from './modules/survey/survey-viewer/survey-vie
 import { ViewResponseComponent } from './modules/survey/view-response/view-response.component';
 import { ViewSurveyAnalyticsComponent } from './modules/survey/view-survey-analytics/view-survey-analytics.component';
 import { ViewResponsePageComponent } from './modules/survey/view-response-page/view-response-page.component';
+import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -46,6 +47,13 @@ const routes: Routes = [
     path:'analytics/:id',
     component: ViewSurveyAnalyticsComponent,
     canActivate: [AuthGuard],
+  },
+  
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { admin: true }, // Indicate admin access is required
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },

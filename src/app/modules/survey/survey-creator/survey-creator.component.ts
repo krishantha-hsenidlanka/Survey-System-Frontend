@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SurveyCreatorModel } from "survey-creator-core";
 import { ApiService } from "../../../shared/services/api.service";
+import { Serializer } from "survey-core";
+
 
 const creatorOptions = {
   // showLogicTab: true,
@@ -28,6 +30,13 @@ const defaultJson = {
   }]
 };
 
+Serializer.addProperty("survey", {
+  name: "public",
+  category: "general",
+  type: "boolean" ,
+  visibleIndex: 0,
+});
+
 @Component({
   selector: 'survey-creator-component',
   templateUrl: './survey-creator.component.html',
@@ -45,7 +54,6 @@ export class SurveyCreatorComponent implements OnInit {
   ngOnInit() {
 
     const creator = new SurveyCreatorModel(creatorOptions);
-
 
     this.route.params.subscribe((params) => {
       this.surveyId = params['id'];
