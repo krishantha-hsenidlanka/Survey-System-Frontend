@@ -37,4 +37,8 @@ export class ApiService {
   getResponsesBySurveyId(surveyId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/responses/bySurvey/${surveyId}`);
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/`);
+  }
 }

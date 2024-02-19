@@ -11,6 +11,9 @@ import { ViewResponseComponent } from './modules/survey/view-response/view-respo
 import { ViewSurveyAnalyticsComponent } from './modules/survey/view-survey-analytics/view-survey-analytics.component';
 import { ViewResponsePageComponent } from './modules/survey/view-response-page/view-response-page.component';
 import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
+import { SettingsComponent } from './modules/admin/settings/settings.component';
+import { AdminDashboardModule } from './modules/admin/admin-dashboard.module';
+import { AdminDashboardRoutingModule } from './modules/admin/admin-dashboard-routing.module';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -47,19 +50,14 @@ const routes: Routes = [
     path:'analytics/:id',
     component: ViewSurveyAnalyticsComponent,
     canActivate: [AuthGuard],
+    
   },
-  
-  {
-    path: 'admin-dashboard',
-    component: AdminDashboardComponent,
-    canActivate: [AuthGuard],
-    data: { admin: true }, // Indicate admin access is required
-  },
+ 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), AdminDashboardRoutingModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

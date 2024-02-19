@@ -25,6 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { SurveyCreatorModule } from 'survey-creator-angular';
 import { SurveyCreatorComponent } from './modules/survey/survey-creator/survey-creator.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
@@ -47,7 +49,6 @@ import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-d
     ViewResponseComponent,
     ViewSurveyAnalyticsComponent,
     ViewResponsePageComponent,
-    AdminDashboardComponent,
 
   ],
   imports: [
