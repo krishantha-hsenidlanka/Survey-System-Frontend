@@ -41,4 +41,17 @@ export class ApiService {
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/`);
   }
+
+  getSurveysByOwnerId(ownerId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/surveys/owner/${ownerId}`);
+  }
+
+  registerUser(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/signup`, userData);
+  }
+
+  updateUser(userId: string, userData: any): Observable<any> {
+    console.log("Updating user", userData);
+    return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
+  }
 }

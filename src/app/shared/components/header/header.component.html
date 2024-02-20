@@ -1,17 +1,52 @@
-<!-- header.component.html -->
-<mat-toolbar color="primary">
-  <span (click)="navigateToHome()" class="cursor-pointer">Survey App</span>
-  <span class="flex-grow"></span>
-  <ng-container *ngIf="isLoggedIn(); else loggedOutTemplate">
-    <!-- Content for logged-in users -->
-    <button mat-icon-button (click)="logout()">
-      <mat-icon>logout</mat-icon>
-    </button>
-  </ng-container>
-  <ng-template #loggedOutTemplate>
-    <!-- Content for logged-out users -->
-    <button mat-icon-button>
-      <mat-icon>login</mat-icon>
-    </button>
-  </ng-template>
-</mat-toolbar>
+<!-- Import Angular Flex Layout module in your component -->
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch" fxLayoutGap="18px">
+  <mat-toolbar color="primary">
+    <span (click)="navigateToHome()" class="cursor-pointer">Survey App</span>
+    <span class="flex-grow"></span>
+
+    <ng-container *ngIf="isLoggedIn(); else loggedOutTemplate">
+
+      <!-- Content for logged-in users -->
+      <span class="flex items-center space-x-4">
+
+        <span class="group" matTooltip="My Surveys" matTooltipPosition="above">
+
+          <button mat-icon-button (click)="navigateToMySurveys()" class="text-white group-hover:text-gray-300">
+
+            <mat-icon>assignment</mat-icon>
+            <span class="text-xs text-center hidden group-hover:block">My Surveys</span>
+
+          </button>
+        </span>
+
+        <span class="group" matTooltip="About" matTooltipPosition="above">
+          <button mat-icon-button (click)="navigateToAbout()" class="text-white group-hover:text-gray-300">
+            <mat-icon>info</mat-icon>
+            <span class="text-xs text-center hidden group-hover:block">About</span>
+          </button>
+        </span>
+
+        <span class="group" matTooltip="Profile" matTooltipPosition="above">
+          <button mat-icon-button (click)="navigateToUserProfile()" class="group-hover:text-gray-300">
+            <mat-icon>account_circle</mat-icon>
+            <span class="text-xs text-center hidden group-hover:block">Profile</span>
+          </button>
+        </span>
+
+        <span class="group" matTooltip="Logout" matTooltipPosition="above">
+          <button mat-icon-button (click)="logout()" class="text-white group-hover:text-gray-300">
+            <mat-icon>logout</mat-icon>
+          </button>
+        </span>
+
+      </span>
+    </ng-container>
+
+    <ng-template #loggedOutTemplate>
+      <!-- Content for logged-out users -->
+      <button mat-icon-button (click)="navigateToLogin()">
+        <mat-icon>login</mat-icon>
+      </button>
+    </ng-template>
+  </mat-toolbar>
+</div>

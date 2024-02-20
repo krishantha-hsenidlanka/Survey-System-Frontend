@@ -11,9 +11,15 @@ import { UsersComponent } from './users/users.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SurveysComponent } from './surveys/surveys.component';
 import { AppLogComponent } from './app-log/app-log.component';
+import { EditUserModalComponent } from './users/edit-user-modal/edit-user-modal.component';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SurveyDialogComponent } from './surveys/survey-dialog/survey-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
-  declarations: [AdminDashboardComponent, SettingsComponent, SideNavComponent, UsersComponent, SurveysComponent, AppLogComponent],
-  imports: [CommonModule, MatSidenavModule, MatListModule, AdminDashboardRoutingModule, MatIconModule],
+  declarations: [AdminDashboardComponent, SettingsComponent, SideNavComponent, UsersComponent, SurveysComponent, AppLogComponent, EditUserModalComponent, SurveyDialogComponent],
+  imports: [CommonModule, MatSidenavModule, MatProgressSpinnerModule, MatDialogModule, MatMenuModule, MatListModule, AdminDashboardRoutingModule, MatIconModule, FormsModule],
 })
 export class AdminDashboardModule {}

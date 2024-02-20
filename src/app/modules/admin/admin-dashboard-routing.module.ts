@@ -7,6 +7,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
 import { AuthGuard } from '../../core/auth.guard';
+import { SurveysComponent } from './surveys/surveys.component';
 
 const adminDashboardRoutes: Routes = [
   {
@@ -17,6 +18,7 @@ const adminDashboardRoutes: Routes = [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'surveys', component: SurveysComponent },
       // Add more child routes for other admin-related components
     ],
     canActivate: [AuthGuard],
