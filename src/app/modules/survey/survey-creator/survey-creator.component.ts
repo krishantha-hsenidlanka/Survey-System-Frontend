@@ -1,59 +1,69 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { SurveyCreatorModel } from "survey-creator-core";
-import { ApiService } from "../../../shared/services/api.service";
-import { Serializer } from "survey-core";
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SurveyCreatorModel } from 'survey-creator-core';
+import { ApiService } from '../../../shared/services/api.service';
+import { Serializer } from 'survey-core';
 
 const creatorOptions = {
   // showLogicTab: true,
   isAutoSave: false,
-  showJSONEditorTab: true, 
+  showJSONEditorTab: true,
   showLogicTab: false,
-  showThemeTab:true
-
-  
+  showThemeTab: false,
+  showFileUpload: false,
 };
 
 const defaultJson = {
-  pages: [{
-    name: "Name",
-    elements: [{
-      name: "FirstName",
-      title: "Enter your first name:",
-      type: "text"
-    }, {
-      name: "LastName",
-      title: "Enter your last name:",
-      type: "text"
-    }]
-  }]
+  pages: [
+    {
+      name: 'Name',
+      elements: [
+        {
+          name: 'FirstName',
+          title: 'Enter your first name:',
+          type: 'text',
+        },
+        {
+          name: 'LastName',
+          title: 'Enter your last name:',
+          type: 'text',
+        },
+      ],
+    },
+  ],
 };
 
-Serializer.addProperty("survey", {
-  name: "public",
-  category: "general",
-  type: "boolean" ,
+Serializer.addProperty('survey', {
+  name: 'public',
+  category: 'general',
+  type: 'boolean',
   visibleIndex: 0,
 });
+
+
 
 @Component({
   selector: 'survey-creator-component',
   templateUrl: './survey-creator.component.html',
-  styleUrls: ['./survey-creator.component.css']
+  styleUrls: ['./survey-creator.component.css'],
 })
 export class SurveyCreatorComponent implements OnInit {
   surveyCreatorModel: SurveyCreatorModel;
   surveyId: string | undefined;
-  
 
-  constructor( private ApiService: ApiService,
-    private route: ActivatedRoute) {
+  constructor(private ApiService: ApiService, private route: ActivatedRoute) {
     this.surveyCreatorModel = new SurveyCreatorModel(creatorOptions);
   }
   ngOnInit() {
-
     const creator = new SurveyCreatorModel(creatorOptions);
+    creator.toolbox.removeItem('file'); 
+    creator.toolbox.removeItem('image');
+    creator.toolbox.removeItem('imagepicker');
+    creator.toolbox.removeItem('panel');
+    creator.toolbox.removeItem('paneldynamic');
+    creator.toolbox.removeItem('signaturepad');
+    
+
 
     this.route.params.subscribe((params) => {
       this.surveyId = params['id'];
@@ -62,9 +72,10 @@ export class SurveyCreatorComponent implements OnInit {
         // Fetch survey by ID and load into the creator
         this.ApiService.getSurveyById(this.surveyId).subscribe(
           (surveyData) => {
-            creator.text = JSON.stringify(surveyData) || JSON.stringify(defaultJson);
+            creator.text =
+              JSON.stringify(surveyData) || JSON.stringify(defaultJson);
             console.log(surveyData);
-            console.log("Creator Text", creator.text);
+            console.log('Creator Text', creator.text);
           },
           (error) => {
             console.error('Error fetching survey:', error);
@@ -72,10 +83,8 @@ export class SurveyCreatorComponent implements OnInit {
         );
       }
     });
-    
 
-    creator.saveSurveyFunc = (saveNo: number, callback: Function) => { 
-
+    creator.saveSurveyFunc = (saveNo: number, callback: Function) => {
       const surveyData = creator.JSON;
 
       if (this.surveyId) {
@@ -91,8 +100,6 @@ export class SurveyCreatorComponent implements OnInit {
       } else {
         // Implement logic to create a new survey
       }
-
-
 
       // window.localStorage.setItem("survey-json", creator.text);
       // callback(saveNo, true);
@@ -126,12 +133,8 @@ export class SurveyCreatorComponent implements OnInit {
     // });
 
     this.surveyCreatorModel = creator;
-
-
-    
   }
 
-  
   ngAfterViewInit() {
     // Execute additional code after the view has initialized
     this.modifySurveyCreatorView();
@@ -152,7 +155,8 @@ export class SurveyCreatorComponent implements OnInit {
       // OR to completely remove the banner from the DOM
       banner.remove();
     }
-    console.log("Modify Survey Creator View");
+    
+    console.log('Modify Survey Creator View');
   }
 }
 

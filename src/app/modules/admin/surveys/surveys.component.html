@@ -1,7 +1,7 @@
-<h1 class="text-2xl font-bold mb-4">Survey Folders</h1>
+<h1 class="text-2xl font-bold mb-4 text-center">Survey Folders</h1>
 <mat-divider class="col-span-5"></mat-divider>
 
-<div class="grid grid-cols-5 gap-4 p-4">
+<div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 p-4">
   <ng-container *ngFor="let folder of folders">
     <div
       class="group p-4 border border-gray-200 rounded-md transition-transform transform hover:bg-slate-200 cursor-pointer"
@@ -13,17 +13,3 @@
     </div>
   </ng-container>
 </div>
-
-<!-- Display surveys for the selected user -->
-<!-- <div *ngIf="selectedUserId">
-  <h2 class="text-2xl font-bold my-4">Surveys for {{ selectedUserId }}</h2>
-  <div class="grid grid-cols-3 gap-4 p-4">
-    <ng-container *ngFor="let survey of userSurveys">
-      <div class="group p-4 border border-gray-200 rounded-md transition-transform transform hover:bg-slate-200 cursor-pointer">
-        <mat-icon class="text-2xl mb-2 text-green-500" matListItemIcon>description</mat-icon>
-        <div class="font-semibold">{{ survey.title }}</div>
-        <div class="text-gray-500 text-sm">{{ survey.description }}</div>
-      </div>
-    </ng-container>
-  </div>
-</div> -->

@@ -23,6 +23,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth.interceptor';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -37,6 +38,7 @@ import { ViewSurveyAnalyticsComponent } from './modules/survey/view-survey-analy
 import { ViewResponsePageComponent } from './modules/survey/view-response-page/view-response-page.component';
 import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
 import { UserComponent } from './modules/user/user.component';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,12 +64,14 @@ import { UserComponent } from './modules/user/user.component';
     MatIconModule,
     MatOptionModule,
     MatTabsModule,
+    MatInputModule,
     MatMenuModule,
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyMaterialModule,
     MatFormFieldModule,
     MatCardModule,
+    MatDividerModule,
     MatProgressSpinnerModule,
     AppRoutingModule,
     HttpClientModule,

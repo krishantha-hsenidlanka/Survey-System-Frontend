@@ -7,25 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-navigateToMySurveys() {
-throw new Error('Method not implemented.');
-}
-navigateToAbout() {
-throw new Error('Method not implemented.');
-}
-isAdmin(): any {
-throw new Error('Method not implemented.');
-}
-navigateToAdmin() {
-throw new Error('Method not implemented.');
-}
-navigateToUserProfile() {
-throw new Error('Method not implemented.');
-}
-navigateToLogin() {
-throw new Error('Method not implemented.');
-}
   constructor(private authService: AuthService, private router: Router) {}
+
+  private isAdminUser: boolean | undefined;
 
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();
@@ -38,5 +22,31 @@ throw new Error('Method not implemented.');
 
   navigateToHome(): void {
     this.router.navigate(['/']);
+  }
+
+  navigateToMySurveys() {
+    this.router.navigate(['/']);
+  }
+  navigateToAbout() {
+    this.router.navigate(['/about']);
+  }
+  isAdmin(): boolean {
+    if (this.isAdminUser === undefined) {
+      this.authService.checkAdminStatus().subscribe((isAdmin) => {
+        this.isAdminUser = isAdmin;
+        console.log('Header isAdmin', this.isAdminUser);
+      });
+    }
+    return this.isAdminUser || false;
+  }
+
+  navigateToAdmin() {
+    this.router.navigate(['/admin/dashboard']);
+  }
+  navigateToUserProfile() {
+    this.router.navigate(['/profile']);
+  }
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }

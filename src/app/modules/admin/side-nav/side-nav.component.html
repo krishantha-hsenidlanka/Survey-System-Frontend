@@ -1,26 +1,33 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+<mat-sidenav-container class="h-screen">
+  <mat-sidenav mode="side" opened class="bg-gray-800 text-white pt-20">
     <!-- Your sidenav content goes here -->
     <mat-nav-list>
-      <a mat-list-item routerLink="/admin">Home</a>
-      <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="active"
-        >Dashboard</a
-      >
-      <a mat-list-item routerLink="/admin/users" routerLinkActive="active"
-        >Users</a
-      >
-      <a mat-list-item routerLink="/admin/surveys" routerLinkActive="active">
+      <a mat-list-item routerLink="/admin" class="flex items-center py-2 px-4">
+        <mat-icon class="text-xl mr-2">home</mat-icon>
+        Home
+      </a>
+      <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="active" class="flex items-center py-2 px-4">
+        <mat-icon class="text-xl mr-2">dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a mat-list-item routerLink="/admin/users" routerLinkActive="active" class="flex items-center py-2 px-4">
+        <mat-icon class="text-xl mr-2">people</mat-icon>
+        Users
+      </a>
+      <a mat-list-item routerLink="/admin/surveys" routerLinkActive="active" class="flex items-center py-2 px-4">
+        <mat-icon class="text-xl mr-2">description</mat-icon>
         Surveys
       </a>
-      <a mat-list-item routerLink="/admin/settings" routerLinkActive="active"
-        >Settings</a
-      >
+      <a mat-list-item routerLink="/admin/logs" routerLinkActive="active" class="flex items-center py-2 px-4">
+        <mat-icon class="text-xl mr-2">terminal</mat-icon>
+        App Log
+      </a>
 
       <!-- Add more links for different sections as needed -->
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content class="ml-64">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

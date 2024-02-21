@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { LoginResponse } from './auth.model';
 import { Router } from '@angular/router';
 
@@ -40,23 +40,34 @@ export class AuthService {
   }
 
   private redirectToDashboard(): void {
-    this.router.navigate(['/dashboard']);
+    window.location.href = '/dashboard';
   }
+  
 
   private redirectToLogin(): void {
     this.router.navigate(['/login']);
   }
 
   isUserAdmin(): boolean {
-    return this.isAdmin;
+    let isAdmin: boolean = false;
+    this.checkAdminStatus().subscribe((result) => {
+      isAdmin = result;
+    });
+    return isAdmin;
   }
 
   checkAdminStatus(): Observable<boolean> {
     const url = 'http://localhost:8080/api/admin';
     return this.http.get<{ success: boolean }>(url).pipe(
+      tap((response) => {
+        console.log('Admin Status Response:', response);
+        console.log('Is Admin:', response.success);
+      }),
       map((response) => response.success),
-      tap((isAdmin) => {
-        console.log('Is Admin:', isAdmin);
+      catchError((error) => {
+        console.error('Error checking admin status:', error);
+        // Handle the error gracefully and return a default value (false)
+        return of(false);
       })
     );
   }

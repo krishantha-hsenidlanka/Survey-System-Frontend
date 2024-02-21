@@ -14,6 +14,7 @@ import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-d
 import { SettingsComponent } from './modules/admin/settings/settings.component';
 import { AdminDashboardModule } from './modules/admin/admin-dashboard.module';
 import { AdminDashboardRoutingModule } from './modules/admin/admin-dashboard-routing.module';
+import { UserComponent } from './modules/user/user.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     canActivate: [NoAuthGuard],
+  },
+  {
+    path: 'profile',
+    component: UserComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'dashboard',
