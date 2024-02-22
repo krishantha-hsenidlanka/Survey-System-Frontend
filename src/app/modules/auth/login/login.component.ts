@@ -1,59 +1,50 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig, FormlyFieldProps } from '@ngx-formly/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent {
-  loginForm = new FormGroup({});
-  model = {};
+  loginForm: FormGroup;
+  hidePassword = true;
 
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'username',
-      type: 'input',
-      templateOptions: {
-        label: 'Username',
-        required: true,
-      },
-    },
-    {
-      key: 'password',
-      type: 'input',
-      templateOptions: {
-        type: 'password',
-        label: 'Password',
-        required: true,
-      },
-    },
-  ];
-
-  constructor(private authService: AuthService) {}
-
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   onSubmit() {
-    const credentials = {
-      username: (this.model as { username: string })['username'],
-      password: (this.model as { password: string })['password'],
-    };
+    if (this.loginForm.valid) {
+      const credentials = this.loginForm.value;
 
-    this.authService.login(credentials).subscribe(
-      (response) => {
-        // Handle successful login
-        console.log(response);
-        // Redirect or perform additional actions as needed
-      },
-      (error) => {
-        // Handle login error
-        console.error(error);
-        alert('Login failed. Please try again.');
-        // Display error message or take appropriate action
-      }
-    );
+      this.authService.login(credentials).subscribe(
+        (response) => {
+          console.log(response);
+          this.openSnackBar('Login successful');
+        },
+        (error) => {
+          console.error(error);
+          this.openSnackBar('Login failed. Username or Password is incorrect. Please try again.');
+        }
+      );
+    }
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
   }
 }

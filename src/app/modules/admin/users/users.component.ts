@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
@@ -11,7 +12,7 @@ export class UsersComponent implements OnInit {
   selectedUser: any | null = null;
   updatedUser: any = {}; // Initialize updatedUser object
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService , private snackBar: MatSnackBar ) {}
 
   ngOnInit(): void {
     this.apiService.getAllUsers().subscribe(
@@ -20,6 +21,10 @@ export class UsersComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching users:', error);
+        this.snackBar.open('Failed to fetch users', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        })
       }
     );
   }
@@ -45,10 +50,17 @@ export class UsersComponent implements OnInit {
         this.selectedUser = null;
         this.updatedUser = {};
         this.closeModal();
-        alert('User details updated successfully!');
+        this.snackBar.open('User details updated successfully', 'Close', {
+          duration: 3000,
+          panelClass: ['success-snackbar'],
+        })
       },
       (error: any) => {
         console.error('Error updating user details:', error);
+        this.snackBar.open('Failed to update user details', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        })
       }
     );    
   }

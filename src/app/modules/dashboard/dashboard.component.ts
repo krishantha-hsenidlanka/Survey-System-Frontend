@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,37 +11,63 @@ import { Observable } from 'rxjs';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  username: string | undefined;
+  currentTime: string = '';
   surveys$: Observable<any[]> | undefined;
 
-  constructor(private ApiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit() {
     this.loadSurveys();
+    this.getUsername();
+    this.updateCurrentTime();
   }
 
   private loadSurveys() {
-    this.surveys$ = this.ApiService.getSurveysForLoggedInUser();
+    this.surveys$ = this.apiService.getSurveysForLoggedInUser();
+  }
+
+  private getUsername() {
+    this.apiService.getUserDetails().subscribe(
+      (userDetails) => {
+        this.username = userDetails.username;
+      },    
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    )
+  }
+
+  private updateCurrentTime() {
+    setInterval(() => {
+      const now = new Date();
+      this.currentTime = now.toLocaleTimeString();
+    }, 1000);
   }
 
   navigateToSurvey(surveyId: string) {
     window.open(`/survey/edit/${surveyId}`, '_blank');
   }
 
-  navigateToViewSurvey(surveyId: string){
+  navigateToViewSurvey(surveyId: string) {
     window.open(`/survey/${surveyId}`, '_blank');
   }
 
-  navigateToSurveyResponses(surveyId: string){
+  navigateToSurveyResponses(surveyId: string) {
     window.open(`/responses/${surveyId}`, '_blank');
   }
 
   deleteSurvey(surveyId: string) {
-    this.ApiService.deleteSurveyById(surveyId).subscribe(
+    this.apiService.deleteSurveyById(surveyId).subscribe(
       (response) => {
         this.loadSurveys();
         alert(response.message);
       }
-    )
+    );
   }
 
   createNewSurvey() {
@@ -65,7 +93,7 @@ export class DashboardComponent implements OnInit {
       ]
     };
 
-    this.ApiService.createSurvey(newSurveyData).subscribe(
+    this.apiService.createSurvey(newSurveyData).subscribe(
       (response) => {
         this.loadSurveys();
         const newSurveyId = response.id;
@@ -73,7 +101,16 @@ export class DashboardComponent implements OnInit {
       },
       (error) => {
         console.error('Error creating survey:', error);
+        this.openSnackBar('Error creating survey. Please try again.');
       }
     );
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 }

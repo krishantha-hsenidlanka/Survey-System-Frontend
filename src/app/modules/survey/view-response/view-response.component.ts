@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-response',
@@ -13,7 +14,8 @@ export class ViewResponseComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private snackBar: MatSnackBar,
   ) {
     this.surveyId = '';
     this.responses = [];
@@ -31,10 +33,18 @@ export class ViewResponseComponent implements OnInit {
           },
           (error) => {
             console.error('Error fetching responses:', error);
-            // Handle error as needed
+            this.openSnackBar('Error fetching responses!');
           }
         );
       }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000, 
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
     });
   }
 }

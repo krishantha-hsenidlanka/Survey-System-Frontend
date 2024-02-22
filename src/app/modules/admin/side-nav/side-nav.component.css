@@ -1,18 +1,41 @@
+/* side-nav.component.css */
+
 mat-sidenav {
-    width: 200px; /* Adjust the width as needed */
+  width: 200px;
+  background-color: #edfdfa;
+}
+
+mat-sidenav-content {
+  padding: 16px; 
+}
+
+.active {
+  background-color: #cbcefc;
+}
+
+app-side-nav, mat-sidenav-content {
+  min-height: 82vh !important;
+}
+
+.sidenav-item{
+  border-radius: 0px 10px 50px 0px;
+}
+
+.sidenav-item:hover{
+  background-color: #cbcefc69;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  mat-sidenav {
+    width: 56px;
   }
-  
-  mat-sidenav-content {
-    padding: 16px; /* Adjust the padding as needed */
-  
+
+  .sidebar-label {
+    display: none;
   }
-  
-  .active {
-    background-color: #e0e0e0; /* Define a background color for the active link */
+
+  mat-icon {
+    margin-right: 0;
   }
-  
-  app-side-nav, mat-sidenav-content {
-      min-height: 82vh !important;
-  }
-  
-  
+}

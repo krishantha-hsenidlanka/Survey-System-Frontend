@@ -66,7 +66,7 @@ export class AuthService {
       map((response) => response.success),
       catchError((error) => {
         console.error('Error checking admin status:', error);
-        // Handle the error gracefully and return a default value (false)
+        this.logout();
         return of(false);
       })
     );

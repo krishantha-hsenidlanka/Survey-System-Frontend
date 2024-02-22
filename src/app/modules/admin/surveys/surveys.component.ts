@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyDialogComponent } from './survey-dialog/survey-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-surveys',
@@ -18,7 +19,7 @@ export class SurveysComponent implements OnInit {
   loadingSurveys: boolean = false;
   surveysLoaded: boolean = false;
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private dialog: MatDialog, private snackBar: MatSnackBar ) {}
 
   ngOnInit(): void {
     this.apiService.getAllUsers().subscribe(
@@ -27,6 +28,11 @@ export class SurveysComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching users:', error);
+        this.snackBar.open('Failed to fetch users', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        })
+
       }
     );
   }
@@ -56,6 +62,11 @@ export class SurveysComponent implements OnInit {
       },
       (error: any) => {
         console.error(`Error fetching surveys for user ${userId}:`, error);
+        this.snackBar.open(error.error.message, 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+
+        })
         this.loadingSurveys = false;
       }
     );

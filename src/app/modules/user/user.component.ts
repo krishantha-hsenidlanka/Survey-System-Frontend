@@ -29,6 +29,10 @@ export class UserComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching user details:', error);
+        this.snackBar.open('Failed to fetch user details', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        })
       }
     );
 

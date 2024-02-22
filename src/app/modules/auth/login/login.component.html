@@ -1,3 +1,5 @@
+<!-- login.component.html -->
+
 <div class="grid place-items-center">
   <mat-card class="w-96 mx-auto mt-8">
     <mat-card-header>
@@ -6,15 +8,22 @@
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <formly-form
-          [form]="loginForm"
-          [fields]="fields"
-          [model]="model"
-        ></formly-form>
-        <button mat-raised-button color="primary" type="submit">Login</button>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="w-full">Login</button>
       </form>
 
-      
       <p class="mt-4">
         Don't have an account? <a routerLink="/register" class="text-blue-500">Register here</a>.
       </p>

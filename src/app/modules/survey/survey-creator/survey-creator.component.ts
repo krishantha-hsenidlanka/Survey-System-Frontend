@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SurveyCreatorModel } from 'survey-creator-core';
 import { ApiService } from '../../../shared/services/api.service';
 import { Serializer } from 'survey-core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const creatorOptions = {
   // showLogicTab: true,
@@ -51,7 +52,7 @@ export class SurveyCreatorComponent implements OnInit {
   surveyCreatorModel: SurveyCreatorModel;
   surveyId: string | undefined;
 
-  constructor(private ApiService: ApiService, private route: ActivatedRoute) {
+  constructor(private ApiService: ApiService, private route: ActivatedRoute, private snackBar: MatSnackBar) {
     this.surveyCreatorModel = new SurveyCreatorModel(creatorOptions);
   }
   ngOnInit() {
@@ -79,6 +80,7 @@ export class SurveyCreatorComponent implements OnInit {
           },
           (error) => {
             console.error('Error fetching survey:', error);
+            window.location.href = '/';
           }
         );
       }
@@ -91,10 +93,12 @@ export class SurveyCreatorComponent implements OnInit {
         this.ApiService.updateSurvey(this.surveyId, surveyData).subscribe(
           (response) => {
             callback(saveNo, true);
+            this.openSnackBar('Survey updated successfully!');
             console.log('Survey updated successfully:', response);
           },
           (error) => {
             console.error('Error updating survey:', error);
+            this.openSnackBar('Error updating survey!');
           }
         );
       } else {
@@ -158,6 +162,15 @@ export class SurveyCreatorComponent implements OnInit {
     
     console.log('Modify Survey Creator View');
   }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+  }
+
 }
 
 // function saveSurveyJson(url: string | URL, json: object, saveNo: number, callback: Function) {

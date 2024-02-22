@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { Model } from 'survey-core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-survey-viewer',
@@ -13,7 +14,11 @@ export class SurveyViewerComponent implements OnInit {
   surveyModel: Model;
   surveyId: string;
 
-  constructor(private route: ActivatedRoute, private ApiService: ApiService) {
+  constructor(
+    private route: ActivatedRoute,
+    private ApiService: ApiService,
+    private snackBar: MatSnackBar
+  ) {
     this.surveyModel = new Model();
     this.surveyId = '';
   }
@@ -37,6 +42,7 @@ export class SurveyViewerComponent implements OnInit {
           },
           (error) => {
             console.error('Error fetching survey:', error);
+            this.openSnackBar('Error fetching survey!');
             // Handle error as needed
           }
         );
@@ -44,29 +50,31 @@ export class SurveyViewerComponent implements OnInit {
     });
   }
 
-  // Function to handle the survey completion
   onSurveyComplete(sender: { data: any }) {
-    console.log(sender.data); // Log the filled data to the console
+    console.log(sender.data); 
 
-    // Prepare the data for the API call
     const apiData = {
-      surveyId: this.surveyId, // Use the surveyId from the route parameters
+      surveyId: this.surveyId, 
       answers: [sender.data],
     };
 
-    // Call the API to submit survey responses
     this.ApiService.submitSurveyResponse(apiData).subscribe(
       (response) => {
         console.log('Survey response submitted successfully:', response);
-        // You can add additional handling if needed
+        this.openSnackBar('Survey response submitted successfully!');
       },
       (error) => {
         console.error('Error submitting survey response:', error);
-        // Handle error as needed
+        this.openSnackBar('Error submitting survey response!');
       }
     );
+  }
 
-    // Optionally, display an alert with the filled data
-    alert(JSON.stringify(sender.data));
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 }
