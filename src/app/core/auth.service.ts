@@ -24,8 +24,13 @@ export class AuthService {
       tap((response: any) => {
         this.storeToken(response.token);
         this.isAdmin = response.roles.includes('ROLE_ADMIN');
+
         console.log('Is admin', this.isAdmin);
-        this.redirectToDashboard();
+        if (this.isAdmin == true) {
+          this.redirectToAdmin();
+        } else {
+          this.redirectToDashboard();
+        }
       })
     );
   }
@@ -42,7 +47,10 @@ export class AuthService {
   private redirectToDashboard(): void {
     window.location.href = '/dashboard';
   }
-  
+
+  private redirectToAdmin(): void {
+    window.location.href = '/admin/home';
+  }
 
   private redirectToLogin(): void {
     this.router.navigate(['/login']);
@@ -66,12 +74,10 @@ export class AuthService {
       map((response) => response.success),
       catchError((error) => {
         console.error('Error checking admin status:', error);
-        this.logout();
         return of(false);
       })
     );
   }
-  
 
   logout(): void {
     localStorage.removeItem('token');

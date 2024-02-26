@@ -15,6 +15,7 @@ const adminDashboardRoutes: Routes = [
     path: 'admin',
     component: SideNavComponent,
     children: [
+      { path: '', component: DashboardComponent },
       { path: 'home', component: DashboardComponent },
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'settings', component: SettingsComponent },

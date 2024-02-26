@@ -23,6 +23,10 @@ export class ApiService {
     return this.http.put(`${this.apiUrl}/surveys/${surveyId}`, surveyData);
   }
 
+  generateSurvey(prompt: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/surveys/generate-survey`, prompt);
+  }
+
   getSurveysForLoggedInUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/surveys/user`);
   }
