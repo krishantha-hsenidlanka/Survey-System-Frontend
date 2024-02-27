@@ -1,0 +1,72 @@
+<!-- src/app/user/user.component.html -->
+
+<div class="flex items-center justify-center h-screen">
+  <mat-card class="w-96 p-4">
+    <mat-card-title class="text-center pb-2">User Profile</mat-card-title>
+
+    <!-- User Information -->
+    <mat-card-content>
+      <div class="flex flex-col items-center py-4">
+        <!-- Add your user details here, for example: -->
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+          alt="User Profile"
+          class="rounded-full h-16 w-16 mb-4"
+        />
+        <p class="text-lg font-semibold mb-2">{{ user.username }}</p>
+        <p class="text-gray-500">{{ user.email }}</p>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+    <div class="text-center text-lg font-bold my-4">
+      <h2>Change Password</h2>
+    </div>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+     
+      <form
+        [formGroup]="changePasswordForm"
+        (ngSubmit)="onSubmitChangePassword()"
+      >
+        <mat-form-field class="w-full">
+          <mat-label>Current Password</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="Enter current password"
+            formControlName="currentPassword"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>New Password</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="Enter new password"
+            formControlName="newPassword"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Confirm New Password</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="Confirm new password"
+            formControlName="confirmNewPassword"
+            required
+          />
+        </mat-form-field>
+
+        <!-- Add your submit button -->
+        <button mat-raised-button color="primary" type="submit">
+          Change Password
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

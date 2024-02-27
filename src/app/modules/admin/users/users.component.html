@@ -1,0 +1,42 @@
+<!-- users.component.html -->
+
+<!-- Import MUI Table components -->
+<div class="container mx-auto mt-8">
+  <table class="min-w-full bg-white border border-gray-300 shadow">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 border-b">#</th>
+        <th class="py-2 px-4 border-b">Username</th>
+        <th class="py-2 px-4 border-b">Email</th>
+        <th class="py-2 px-4 border-b">Roles</th>
+        <th class="py-2 px-4 border-b">Enabled</th>
+        <th class="py-2 px-4 border-b">Registration Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td class="py-2 px-4 border-b"> <mat-icon>person</mat-icon> </td>
+        <td class="py-2 px-4 border-b">{{ user.username }}</td>
+        <td class="py-2 px-4 border-b">{{ user.email }}</td>
+        <td class="py-2 px-4 border-b">{{ getRoles(user) }}</td>
+        <td class="py-2 px-4 border-b">{{ user.enabled ? "Yes" : "No" }}</td>
+        <td class="py-2 px-4 border-b">{{ user.registrationDate || "N/A" }}</td>
+        <td class="py-2 px-4 border-b">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+            (click)="editUser(user)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-edit-user-modal
+  *ngIf="selectedUser"
+  [user]="selectedUser"
+  (saveChanges)="saveChanges($event)"
+  (closeModal)="closeModal()"
+></app-edit-user-modal>
+

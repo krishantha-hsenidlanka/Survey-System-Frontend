@@ -1,0 +1,17 @@
+<div class="container mx-auto mt-8">
+    <h2 class="text-2xl font-bold mb-4">Survey Analytics</h2>
+  
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" id="loadingIndicator" class="data-loading-indicator-panel">
+      <!-- Your loading indicator content -->
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="error" class="text-red-500">{{ error }}</div>
+  
+    <!-- Survey Analytics Container -->
+    <div *ngIf="!loading && !error">
+        <div id="surveyDashboardContainer"></div>
+    </div>
+  </div>
+  

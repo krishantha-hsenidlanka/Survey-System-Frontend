@@ -1,0 +1,16 @@
+<!-- side-nav.component.html -->
+
+<mat-sidenav-container class="h-screen">
+  <mat-sidenav mode="side" opened class="bg-gray-800 text-white pt-20">
+    <mat-nav-list>
+      <a *ngFor="let item of navItems" mat-list-item [routerLink]="item.route" routerLinkActive="active" class="flex items-center py-4 px-4 sidenav-item">
+        <mat-icon class="text-xl mr-2">{{ item.icon }}</mat-icon>
+        <span class="sidebar-label">{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="ml-64">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
