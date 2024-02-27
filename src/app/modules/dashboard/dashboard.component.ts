@@ -36,17 +36,15 @@ export class DashboardComponent implements OnInit {
 private loadSurveys() {
   this.apiService.getSurveysForLoggedInUser().subscribe(
     (response) => {
-      this.surveys$ = of(response as any[]);  // Assuming response is an array
+      this.surveys$ = of(response as any[]);  
       this.surveysLoaded = true;
     },
     (error) => {
       if (error.status === 404) {
-        // Handle 404 error (Not Found)
         this.surveys$ = of([]);  // Empty observable
         this.surveysLoaded = true;
       } else {
         console.error('Error fetching survey details:', error);
-        // Display an error message for other errors
         this.openSnackBar('Error fetching surveys. Please try again.');
       }
     }
@@ -125,7 +123,7 @@ private loadSurveys() {
       (response) => {
         this.loadSurveys();
         const newSurveyId = response.id;
-        window.open(`/survey/edit/${newSurveyId}`, '_blank');
+        this.navigateToSurvey(newSurveyId);
       },
       (error) => {
         console.error('Error creating survey:', error);
@@ -136,17 +134,24 @@ private loadSurveys() {
 
   openGenerateSurveyDialog() {
     const dialogRef = this.dialog.open(SurveyPromptDialogComponent, {
-      width: '400px', // Adjust the width as needed
+      width: '80%', 
     });
-
-    dialogRef.afterClosed().subscribe((result: string | undefined) => {
-      if (result) {
-        console.log(result);
-        this.loadSurveys();
-        this.navigateToSurvey(result);
+  
+    dialogRef.afterClosed().subscribe(
+      (result: string | undefined) => {
+        if (result) {
+          console.log(result);
+          this.loadSurveys();
+          this.navigateToSurvey(result);
+        }
+      },
+      (error) => {
+        console.error('Error in dialog afterClosed:', error);
+        this.openSnackBar('Error processing survey. Please try again.');
       }
-    });
+    );
   }
+  
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {

@@ -58,7 +58,7 @@ export class SurveysComponent implements OnInit {
         this.userSurveys = surveys;
         this.surveysLoaded = true;
         this.loadingSurveys = false;
-        this.openSurveyDialog(); // Open the dialog after surveys are loaded
+        this.openSurveyDialog(); 
       },
       (error: any) => {
         console.error(`Error fetching surveys for user ${userId}:`, error);
@@ -73,10 +73,9 @@ export class SurveysComponent implements OnInit {
   }
 
   openSurveyDialog(): void {
-    // Check if surveys are loaded before opening the dialog
     if (this.surveysLoaded) {
       const dialogRef = this.dialog.open(SurveyDialogComponent, {
-        width: '80%', // Adjust as needed
+        width: '80%', 
         data: { surveys: this.userSurveys, userId: this.selectedUserId },
       });
 

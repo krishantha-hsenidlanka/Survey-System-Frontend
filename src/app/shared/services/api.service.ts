@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +19,14 @@ export class ApiService {
   }
 
   updateSurvey(surveyId: string, surveyData: any): Observable<any> {
-    console.log("updating Survey " , surveyData);
+    console.log('updating Survey ', surveyData);
     return this.http.put(`${this.apiUrl}/surveys/${surveyId}`, surveyData);
   }
 
   generateSurvey(prompt: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/surveys/generate-survey`, prompt);
+    return this.http
+      .post(`${this.apiUrl}/surveys/generate-survey`, prompt)
+      .pipe(catchError(this.handleError));
   }
 
   getSurveysForLoggedInUser(): Observable<any> {
@@ -56,7 +58,7 @@ export class ApiService {
   }
 
   updateUser(userId: string, userData: any): Observable<any> {
-    console.log("Updating user", userData);
+    console.log('Updating user', userData);
     return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
   }
 
@@ -75,5 +77,15 @@ export class ApiService {
   getLogs(): Observable<string> {
     return this.http.get(`${this.apiUrl}/admin/logs`, { responseType: 'text' });
   }
-  
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
 }

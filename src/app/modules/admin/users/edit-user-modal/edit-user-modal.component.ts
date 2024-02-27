@@ -33,7 +33,7 @@ export class EditUserModalComponent implements OnChanges {
            role = ['ROLE_ADMIN'];
         } 
       console.log('roles', roles);
-      // Initialize updatedUser with the default values from the user input
+      // Initialize updatedUser
       this.updatedUser = {
         username: this.user.username,
         email: this.user.email,

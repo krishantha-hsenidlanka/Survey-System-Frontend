@@ -30,7 +30,6 @@ export class UsersComponent implements OnInit {
   }
 
   editUser(user: any): void {
-    // Set selectedUser to the clicked user
     this.selectedUser = user;
     console.log(this.selectedUser);
     console.log(user);
@@ -38,7 +37,7 @@ export class UsersComponent implements OnInit {
     this.updatedUser = {
       username: user.username,
       email: user.email,
-      roles: user.roles.map((role: any) => role.name), // Assuming roles is an array of objects with a 'name' property
+      roles: user.roles.map((role: any) => role.name), 
       enabled: user.enabled,
     };
   }

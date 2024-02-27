@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { AuthService } from './auth.service'; // Update the path based on your project structure
+import { AuthService } from './auth.service'; 
 import {
   Observable,
   catchError,
