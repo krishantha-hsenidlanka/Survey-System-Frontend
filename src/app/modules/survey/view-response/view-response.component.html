@@ -52,6 +52,6 @@
   </div>
 
   <div *ngIf="responses.length === 0" class="mt-8">
-    <p class="text-gray-600">No responses found for the specified survey ID.</p>
+    <p class="text-gray-600">{{ errorMessage }}</p>
   </div>
 </div>

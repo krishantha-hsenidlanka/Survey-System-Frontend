@@ -3,23 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { LoginResponse } from './auth.model';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = environment.apiUrl;
   private isAdmin = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register(user: any): Observable<any> {
-    const url = `${this.apiUrl}/signup`;
+    const url = `${this.apiUrl}/auth/signup`;
     return this.http.post(url, user);
   }
 
   login(credentials: any): Observable<LoginResponse> {
-    const url = `${this.apiUrl}/login`;
+    const url = `${this.apiUrl}/auth/login`;
     return this.http.post(url, credentials).pipe(
       tap((response: any) => {
         this.storeToken(response.token);
@@ -65,7 +66,7 @@ export class AuthService {
   }
 
   checkAdminStatus(): Observable<boolean> {
-    const url = 'http://localhost:8080/api/admin';
+    const url = `${this.apiUrl}/admin`;
     return this.http.get<{ success: boolean }>(url).pipe(
       tap((response) => {
         console.log('Admin Status Response:', response);

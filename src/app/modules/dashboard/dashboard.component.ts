@@ -91,7 +91,7 @@ private loadSurveys() {
     this.apiService.deleteSurveyById(surveyId).subscribe(
       (response) => {
         this.loadSurveys();
-        alert(response.message);
+        this.openSnackBar(response.message);
       }
     );
   }

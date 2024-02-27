@@ -15,6 +15,7 @@ import { SettingsComponent } from './modules/admin/settings/settings.component';
 import { AdminDashboardModule } from './modules/admin/admin-dashboard.module';
 import { AdminDashboardRoutingModule } from './modules/admin/admin-dashboard-routing.module';
 import { UserComponent } from './modules/user/user.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -48,19 +49,22 @@ const routes: Routes = [
     component: SurveyViewerComponent,
   },
   {
-    path:'responses/:id',
+    path: 'responses/:id',
     component: ViewResponsePageComponent,
     canActivate: [AuthGuard],
   },
   {
-    path:'analytics/:id',
+    path: 'analytics/:id',
     component: ViewSurveyAnalyticsComponent,
     canActivate: [AuthGuard],
-    
   },
- 
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '**', component: NotFoundComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes), AdminDashboardRoutingModule],

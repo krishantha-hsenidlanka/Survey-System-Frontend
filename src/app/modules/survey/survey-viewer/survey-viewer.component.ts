@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { Model } from 'survey-core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,17 +7,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-survey-viewer',
   templateUrl: './survey-viewer.component.html',
-  styleUrl: './survey-viewer.component.css',
+  styleUrls: ['./survey-viewer.component.css'],
 })
 export class SurveyViewerComponent implements OnInit {
   survey: any;
   surveyModel: Model;
   surveyId: string;
+  loading: boolean = true;
+  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private ApiService: ApiService,
-    private snackBar: MatSnackBar
+    private apiService: ApiService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.surveyModel = new Model();
     this.surveyId = '';
@@ -28,12 +31,13 @@ export class SurveyViewerComponent implements OnInit {
       this.surveyId = params['id'];
 
       if (this.surveyId) {
-        this.ApiService.getSurveyById(this.surveyId).subscribe(
+        this.apiService.getSurveyById(this.surveyId).subscribe(
           (surveyData) => {
             console.log(surveyData);
             this.survey = surveyData;
             const survey = new Model(surveyData);
             this.surveyModel = survey;
+            this.loading = false;
 
             // Subscribe to the onComplete event
             this.surveyModel.onComplete.add((sender) => {
@@ -42,8 +46,18 @@ export class SurveyViewerComponent implements OnInit {
           },
           (error) => {
             console.error('Error fetching survey:', error);
-            this.openSnackBar('Error fetching survey!');
-            // Handle error as needed
+            this.loading = false;
+
+            if (error.status == 404) {
+              this.errorMessage = 'Survey not found!';
+              this.openSnackBar("Survey not found!");
+            } else if (error.status == 403) {
+              this.errorMessage = 'You do not have permission to view this survey!';
+              this.openSnackBar("You do not have permission to view this survey!");
+            } else {
+              this.errorMessage = 'Error fetching survey!';
+              this.openSnackBar("Error fetching survey!");
+            }
           }
         );
       }
@@ -51,14 +65,14 @@ export class SurveyViewerComponent implements OnInit {
   }
 
   onSurveyComplete(sender: { data: any }) {
-    console.log(sender.data); 
+    console.log(sender.data);
 
     const apiData = {
-      surveyId: this.surveyId, 
+      surveyId: this.surveyId,
       answers: [sender.data],
     };
 
-    this.ApiService.submitSurveyResponse(apiData).subscribe(
+    this.apiService.submitSurveyResponse(apiData).subscribe(
       (response) => {
         console.log('Survey response submitted successfully:', response);
         this.openSnackBar('Survey response submitted successfully!');
@@ -76,5 +90,9 @@ export class SurveyViewerComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  goToHome() {
+    this.router.navigate(['/dashboard']); 
   }
 }

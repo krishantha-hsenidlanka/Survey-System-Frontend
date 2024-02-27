@@ -41,6 +41,7 @@ import { UserComponent } from './modules/user/user.component';
 import { MatInputModule } from '@angular/material/input';
 import { SurveyPromptDialogComponent } from './modules/survey/survey-prompt-dialog/survey-prompt-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ViewResponsePageComponent,
     UserComponent,
     SurveyPromptDialogComponent,
+    NotFoundComponent,
 
   ],
   imports: [

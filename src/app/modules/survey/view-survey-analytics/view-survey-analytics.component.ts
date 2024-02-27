@@ -20,6 +20,7 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
   error: string | null = null;
   surveyData: any;
   responseData: any[] = [];
+  matIconName: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
     private el: ElementRef
   ) {
     this.surveyId = '';
+    this.matIconName = '';
   }
 
   ngOnInit(): void {
@@ -42,8 +44,8 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
             this.fetchSurveyResponses();
           },
           (error) => {
-            this.error = 'Error fetching survey configuration';
-            this.loading = false;
+            this.handleErrorResponse(error);
+
           }
         );
       }
@@ -59,8 +61,7 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
         this.renderSurveyData();
       },
       (error) => {
-        this.error = 'Error fetching survey responses';
-        this.loading = false;
+        this.handleErrorResponse(error);
       }
     );
   }
@@ -76,7 +77,6 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
 
       // console.log('Before removal:', this.el.nativeElement.innerHTML);
 
-      // Use a timeout function to repeatedly attempt to hide the element
       this.hideElementWithTimeout('.sa-commercial', 100000, 0.1);
     }, 1000);
   }
@@ -93,6 +93,24 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
     return answers;
   }
 
+  private handleErrorResponse(error: any) {
+    if (error.status === 404) {
+      this.handleError('No one responded to your survey yet', 'error_outline');
+    } else if (error.status === 403) {
+      this.handleError('You do not have permission', 'block');
+    } else if (error.status === 401) {
+      this.handleError('Unauthorized access', 'vpn_key');
+    } else {
+      this.handleError('Error fetching survey responses', 'error');
+    }
+  }
+
+  private handleError(errorMessage: string, matIconName: string) {
+    this.error = errorMessage;
+    this.matIconName = matIconName; 
+    this.loading = false;
+  }
+
   hideElementWithTimeout(selector: string, totalTime: number, interval: number) {
     let currentTime = 0;
 
@@ -101,7 +119,6 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
       console.log(currentTime);
 
       if (element) {
-        // Hide the element using style.visibility
         element.style.visibility = 'hidden';
         element.style.display = 'none';
         // console.log('Element found and hidden:', this.el.nativeElement.innerHTML);

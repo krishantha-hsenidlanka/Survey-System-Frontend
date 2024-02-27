@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ViewResponseComponent implements OnInit {
   surveyId: string;
   responses: any[];
+  errorMessage: string;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -19,6 +21,7 @@ export class ViewResponseComponent implements OnInit {
   ) {
     this.surveyId = '';
     this.responses = [];
+    this.errorMessage = '';
   }
 
   ngOnInit(): void {
@@ -33,7 +36,14 @@ export class ViewResponseComponent implements OnInit {
           },
           (error) => {
             console.error('Error fetching responses:', error);
-            this.openSnackBar('Error fetching responses!');
+
+            if (error.status == 404) {
+              this.errorMessage = 'No one responded to your survey yet';
+            } else {
+              this.errorMessage = 'Error fetching responses!';
+            }
+
+            this.openSnackBar(this.errorMessage);
           }
         );
       }
