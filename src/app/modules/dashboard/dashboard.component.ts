@@ -134,7 +134,7 @@ private loadSurveys() {
 
   openGenerateSurveyDialog() {
     const dialogRef = this.dialog.open(SurveyPromptDialogComponent, {
-      width: '80%', 
+      width: '90vh', 
     });
   
     dialogRef.afterClosed().subscribe(

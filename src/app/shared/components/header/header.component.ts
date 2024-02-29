@@ -2,16 +2,22 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../core/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ThemeService } from '../../services/theme-service.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
-  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar
+export class HeaderComponent {  
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar, public themeService: ThemeService
     ) {}
 
   private isAdminUser: boolean | undefined;
+
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
 
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();

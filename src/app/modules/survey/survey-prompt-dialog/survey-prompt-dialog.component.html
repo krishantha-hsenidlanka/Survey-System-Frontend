@@ -21,11 +21,12 @@
     <button
       mat-button
       color="primary"
+      class="rounded-btn"
       [disabled]="loading"
       (click)="generateSurvey()"
     >
-      <span *ngIf="loading">AI is thinking...</span>
-      <span *ngIf="!loading">Generate</span>
+      <span *ngIf="loading" class="text-white text-base">AI is thinking...</span>
+      <span class="text-white text-base" *ngIf="!loading">Generate</span>
     </button>
   </div>
 </div>

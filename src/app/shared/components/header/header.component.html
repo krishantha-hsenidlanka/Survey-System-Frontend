@@ -5,7 +5,7 @@
   fxLayoutAlign.lt-md="start stretch"
   fxLayoutGap="18px"
 >
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" class="header">
     <span (click)="navigateToHome()" class="cursor-pointer">Survey App</span>
     <span class="flex-grow"></span>
 
@@ -69,6 +69,27 @@
           </button>
         </span>
 
+        <span
+          class="group"
+          matTooltip="Tougle Theme"
+          matTooltipPosition="above"
+        >
+          <button mat-icon-button (click)="toggleTheme()">
+            <mat-icon *ngIf="themeService.isDarkTheme | async; else lightIcon"
+              >brightness_6</mat-icon
+            >
+            <span class="text-xs text-center hidden group-hover:block"
+              >Light Mode</span
+            >
+            <ng-template #lightIcon>
+              <mat-icon>brightness_3</mat-icon>
+              <span class="text-xs text-center hidden group-hover:block"
+                >Dark Mode</span
+              >
+            </ng-template>
+          </button>
+        </span>
+
         <span class="group" matTooltip="Logout" matTooltipPosition="above">
           <button
             mat-icon-button
@@ -83,6 +104,18 @@
 
     <ng-template #loggedOutTemplate>
       <!-- Content for logged-out users -->
+      <span class="group" matTooltip="Tougle Theme" matTooltipPosition="above">
+        <button mat-icon-button (click)="toggleTheme()">
+          <mat-icon *ngIf="themeService.isDarkTheme | async; else lightIcon"
+            >brightness_6</mat-icon
+          >
+         
+          <ng-template #lightIcon>
+            <mat-icon>brightness_3</mat-icon>
+           
+          </ng-template>
+        </button>
+      </span>
       <button mat-icon-button (click)="navigateToLogin()">
         <mat-icon>login</mat-icon>
       </button>

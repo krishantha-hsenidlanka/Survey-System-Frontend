@@ -10,7 +10,7 @@ mat-sidenav-content {
 }
 
 .active {
-  background-color: #cbcefc;
+  background: linear-gradient(to right, #644de6b6, #2600ffc4);
 }
 
 app-side-nav, mat-sidenav-content {
@@ -22,7 +22,7 @@ app-side-nav, mat-sidenav-content {
 }
 
 .sidenav-item:hover{
-  background-color: #cbcefc69;
+  background: linear-gradient(to right, #644de677, #2600ff60);
 }
 
 /* Mobile responsiveness */

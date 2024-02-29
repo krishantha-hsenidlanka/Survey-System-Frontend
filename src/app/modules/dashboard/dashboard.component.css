@@ -1,26 +1,37 @@
 /* dashboard.component.css */
 .survey-item {
-    cursor: pointer;
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center !important;
-  }
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+}
 
-  .survey-item:hover {
-    background-color: #e2e3ecd8;
-    transition: background-color 0.3s ease;
-  }
-  
-  mat-icon {
-    margin-right: 5px;
-  }
-  
-  .survey-icon{
-    width: auto !important;
-    height: auto !important;
-  }
-  
+.survey-item:hover {
+  background-color: #e2e3ecd8;
+  transition: background-color 0.3s ease;
+}
+
+mat-icon {
+  margin-right: 5px;
+}
+
+.survey-icon {
+  width: auto !important;
+  height: auto !important;
+  color: rgb(86 118 153);
+}
+
+.survey-icon:hover {
+  color: rgb(2, 45, 124);
+  transition: color 0.2s ease;
+}
+
+.item-button:hover {
+  color: rgb(2, 45, 124);
+  transition: color 0.2s ease;
+  font-weight: bold;
+}
