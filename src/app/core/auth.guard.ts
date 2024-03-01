@@ -42,7 +42,7 @@ export class AuthGuard implements CanActivate {
           console.log('Is User Admin: ', isAdmin);
 
           if (!isAdmin) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/home']);
             return of(false);
           }
 

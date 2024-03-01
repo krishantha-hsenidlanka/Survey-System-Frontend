@@ -13,7 +13,7 @@ export class NoAuthGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/home']);
     return false;
   }
 }

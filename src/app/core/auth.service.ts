@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   private redirectToDashboard(): void {
-    window.location.href = '/dashboard';
+    window.location.href = '/home';
   }
 
   private redirectToAdmin(): void {

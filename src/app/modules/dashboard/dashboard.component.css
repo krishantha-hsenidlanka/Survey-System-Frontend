@@ -25,7 +25,7 @@ mat-icon {
   color: rgb(86 118 153);
 }
 
-.survey-icon:hover {
+.survey-item:hover .survey-icon {
   color: rgb(2, 45, 124);
   transition: color 0.2s ease;
 }

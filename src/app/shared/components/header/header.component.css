@@ -1,0 +1,19 @@
+button.active{
+
+    background: var(--ln-gradient-1);
+    padding:  2vw;
+    height: var(--mat-toolbar-standard-height);
+    border-radius: 0% 0% 2vw 2vw;
+}
+
+button.active:hover{
+    background: var(--ln-gradient-2);
+}
+
+.header{
+    background: var(--ln-gradient-h) !important;
+  }
+  
+.dark-theme .header{
+    background: var(--ln-gradient-h-dark) !important;
+  }

@@ -2,9 +2,13 @@
 
 <div class="grid place-items-center">
   <mat-card class="w-96 mx-auto mt-8">
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
+   
+    <div>
+      <h1 class="text-center text-2xl font-bold	mt-4">Login</h1>
+    </div>
+    <div class="py-4">
+      <mat-divider></mat-divider>
+    </div>
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

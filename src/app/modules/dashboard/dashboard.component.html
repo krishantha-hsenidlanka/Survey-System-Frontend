@@ -37,7 +37,10 @@
                 (click)="navigateToSurvey(survey.id)"
                 >description</mat-icon
               >
-              <div class="text-lg font-bold text-gray-800 mb-2 text-center">
+              <div
+                class="text-lg font-bold text-gray-800 mb-2 text-center"
+                (click)="navigateToSurvey(survey.id)"
+              >
                 {{ survey.title }}
               </div>
               <div class="flex justify-between items-center text-cyan-900">
