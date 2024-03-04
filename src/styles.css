@@ -49,3 +49,7 @@
 
 
 
+
+.white-spinner .mat-progress-spinner circle, .mat-spinner circle, .white-spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #ffffff !important;
+  }

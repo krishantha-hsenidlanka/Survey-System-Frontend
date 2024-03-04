@@ -74,6 +74,11 @@ export class AuthService {
       }),
       map((response) => response.success),
       catchError((error) => {
+        if (error.status === 401) {
+          console.error('Unauthorized access');
+          this.logout();
+          return of(false);
+        }
         console.error('Error checking admin status:', error);
         return of(false);
       })

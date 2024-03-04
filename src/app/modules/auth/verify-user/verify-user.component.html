@@ -1,0 +1,55 @@
+<ng-container *ngIf="!verificationToken; else verifyContent">
+  <div class="flex items-center justify-center h-96 flex-col m-16">
+    <mat-icon class="text-9xl !w-auto !h-auto m-4 text-indigo-800">email</mat-icon>
+    <div class="ml-4 text-3xl font-bold text-gray-800 text-center">
+      Please check your inbox for the verification link
+    </div>
+    <button
+      mat-button
+      color="primary"
+      class="!bg-blue-500 !text-white px-4 !py-2 rounded m-4"
+      (click)="goToHome()"
+    >
+      <mat-icon> home </mat-icon>
+      Go back to Home
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #verifyContent>
+  <div
+  class="flex items-center justify-center h-96 flex-col m-16"
+    *ngIf="!errorMessage; else errorContent"
+  >
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <mat-icon class="text-9xl !w-auto !h-auto m-4 text-green-700" *ngIf="!loading">done</mat-icon>
+    <div class="ml-4 text-3xl font-bold text-gray-800 text-center" *ngIf="!loading">
+      User account verified and activated
+    </div>
+    <button
+    mat-button
+    color="primary"
+    class="!bg-blue-500 !text-white px-4 !py-2 rounded m-4"
+    (click)="goToHome()"
+  >
+    <mat-icon> home </mat-icon>
+    Go back to Home
+  </button>
+  </div>
+</ng-template>
+
+<ng-template #errorContent>
+  <div class="flex items-center justify-center h-96 flex-col m-16">
+    <mat-icon class="text-9xl !w-auto !h-auto m-4 text-red-600">error</mat-icon>
+    <div class="ml-4 text-3xl font-bold text-gray-800 text-center">{{ errorMessage }}</div>
+    <button
+    mat-button
+    color="primary"
+    class="!bg-blue-500 !text-white px-4 !py-2 rounded m-4"
+    (click)="goToHome()"
+  >
+    <mat-icon> home </mat-icon>
+    Go back to Home
+  </button>
+  </div>
+</ng-template>

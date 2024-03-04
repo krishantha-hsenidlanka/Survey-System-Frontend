@@ -1,6 +1,6 @@
 
-<div class="flex items-center justify-center mt-20">
-  <mat-card class="w-96 bg-white rounded-lg shadow-md">
+<div class="flex items-center justify-center">
+  <mat-card class="md:w-96 mx-auto mt-8 w-80">
    
     <div>
       <h1 class="text-center text-2xl font-bold	mt-4">Register</h1>
@@ -24,7 +24,7 @@
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Password</mat-label>
           <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword; $event.preventDefault()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
         </mat-form-field>
@@ -32,14 +32,23 @@
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Confirm Password</mat-label>
           <input matInput formControlName="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'" required>
-          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirmPassword">
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword; $event.preventDefault()" [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirmPassword">
             <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" class="w-full !py-5 rounded-btn">
-          Register
-        </button>
+        <div *ngIf="!loading">
+          <button mat-raised-button color="primary" type="submit" class="w-full !py-5 rounded-btn white-spinner"  [disabled]="loading">
+            <span>Register</span>
+          </button>
+        </div>
+        <div *ngIf="loading">
+          <button mat-raised-button color="primary" type="submit" class="w-full !py-5 !rounded-full white-spinner !bg-gray-100"  [disabled]="loading">
+
+          <mat-spinner diameter="20" spinnerColor="#fff"></mat-spinner>
+          </button>
+        </div>
+        
       </form>
 
       <p class="mt-4">

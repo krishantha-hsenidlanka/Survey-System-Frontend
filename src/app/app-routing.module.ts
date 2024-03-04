@@ -16,6 +16,8 @@ import { AdminDashboardModule } from './modules/admin/admin-dashboard.module';
 import { AdminDashboardRoutingModule } from './modules/admin/admin-dashboard-routing.module';
 import { UserComponent } from './modules/user/user.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { MySubmissionsViewerComponent } from './modules/survey/my-submissions-viewer/my-submissions-viewer.component';
+import { VerifyUserComponent } from './modules/auth/verify-user/verify-user.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -24,6 +26,12 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate: [NoAuthGuard],
   },
+  { 
+    path: 'verify', 
+    component: VerifyUserComponent,
+    canActivate: [NoAuthGuard], 
+  },
+
   {
     path: 'profile',
     component: UserComponent,
@@ -51,6 +59,11 @@ const routes: Routes = [
   {
     path: 'responses/:id',
     component: ViewResponsePageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'my-submissions',
+    component: MySubmissionsViewerComponent,
     canActivate: [AuthGuard],
   },
   {

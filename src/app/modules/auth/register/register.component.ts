@@ -16,6 +16,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
+  loading = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = this.fb.group({
@@ -27,11 +28,13 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid && !this.loading) {
+      this.loading = true;
       const userData = this.registerForm.value;
 
       if (userData.password !== userData.confirmPassword) {
         this.openSnackBar('Password and Confirm Password must match.');
+        this.loading = false;
         return;
       }
 
@@ -39,15 +42,16 @@ export class RegisterComponent {
         (response) => {
           console.log('User registered successfully:', response);
           this.openSnackBar('User registered successfully!');
-          //navigate to login page
-          this.router.navigate(['/login']);
+          this.router.navigate(['/verify']);
         },
         (error) => {
           console.error('Error registering user:', error);
-          this.openSnackBar(error.error.message);
-          // Handle error (display message, log, etc.)
+          if(error.status == 500) this.openSnackBar('Something went wrong! User registration failed!'); 
+          else this.openSnackBar(error.error.message);
         }
-      );
+      ).add(() => {
+        this.loading = false; 
+      });
     }
   }
 

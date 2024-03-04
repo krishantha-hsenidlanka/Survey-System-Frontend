@@ -46,6 +46,10 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/responses/bySurvey/${surveyId}`);
   }
 
+  getMySubmissions(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/responses/byCurrentUser`);
+  }
+
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/`);
   }
@@ -77,6 +81,11 @@ export class ApiService {
 
   getLogs(): Observable<string> {
     return this.http.get(`${this.apiUrl}/admin/logs`, { responseType: 'text' });
+  }
+
+  verifyUser(token: string): Observable<any> {
+    const url = `${this.apiUrl}/auth/verify?token=${token}`;
+    return this.http.get(url);
   }
 
   private handleError(error: HttpErrorResponse) {

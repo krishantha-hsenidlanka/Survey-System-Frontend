@@ -7,7 +7,7 @@ import { ThemeService } from './shared/services/theme-service.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'get-started-creator-angular';
+  title = 'AI Survey';
 
   constructor(public themeService: ThemeService) {}
 

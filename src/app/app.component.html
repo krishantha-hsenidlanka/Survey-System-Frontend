@@ -1,6 +1,5 @@
 <app-header></app-header>
 <div class="flex flex-col r-outlet" [ngClass]="{'dark-theme': themeService.isDarkTheme | async, 'light-theme': !(themeService.isDarkTheme | async)}">
     <router-outlet></router-outlet>
-
 </div>
 <app-footer></app-footer>

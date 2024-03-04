@@ -60,6 +60,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         action: () => this.navigateToMySurveys(),
       });
 
+      this.icons.push({
+        tooltip: "My Responses",
+        icon: 'assignment',
+        route: 'my-submissions',
+        action: () => this.navigateToMyResponses(),
+      })
+
       if (this.isAdmin()) {
         this.icons.push({
           tooltip: 'Admin Dashboard',
@@ -100,6 +107,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         action: () => this.navigateToLogin(),
       });
     }
+  }
+  navigateToMyResponses() {
+    this.router.navigate(['/my-submissions']);
   }
 
   private updateActiveStatus(): void {

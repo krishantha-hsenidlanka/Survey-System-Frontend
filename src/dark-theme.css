@@ -4,6 +4,7 @@
   background: var(--ln-gradient-dark) !important;
   color: #fff !important;
 
+
 }
 
 .dark-theme mat-sidenav-container{
@@ -35,6 +36,14 @@
 
 .dark-theme .active .sidebar-label, .dark-theme .active .mat-icon-no-color{
     color: #ffffff;
+}
+
+.dark-theme .bg-gray-200{
+  background: var(--ln-gradient-dark) !important;
+}
+
+.dark-theme .text-blue-900{
+  color: #b9d6d4 !important;
 }
 
 
@@ -106,11 +115,14 @@
     color: var(--dark-color-2);
 }
 
-.dark-theme .text-slate-600{
-    color: #cecfcf;
+
+.dark-theme .mdc-tab__text-label, .dark-theme .text-gray-600, .dark-theme .text-slate-600, .dark-theme .text-gray-500{
+  color: #bbb4b4 !important;
 }
 
-
+.dark-theme .sd-description .svc-string-editor__input, .dark-theme .sd-page__title .svc-string-editor__input{
+  color: #bbb4b4;
+}
 
 
 .light-theme {
