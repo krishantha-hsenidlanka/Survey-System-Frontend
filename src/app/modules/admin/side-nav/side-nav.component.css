@@ -1,0 +1,41 @@
+/* side-nav.component.css */
+
+mat-sidenav {
+  width: 200px;
+  background-color: #edfdfa;
+}
+
+mat-sidenav-content {
+  padding: 16px; 
+}
+
+.active {
+  background: linear-gradient(to right, #644de6b6, #2600ffc4);
+}
+
+app-side-nav, mat-sidenav-content {
+  min-height: 82vh !important;
+}
+
+.sidenav-item{
+  border-radius: 0px 10px 50px 0px;
+}
+
+.sidenav-item:hover{
+  background: linear-gradient(to right, #644de677, #2600ff60);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  mat-sidenav {
+    width: 56px;
+  }
+
+  .sidebar-label {
+    display: none;
+  }
+
+  mat-icon {
+    margin-right: 0;
+  }
+}
