@@ -42,19 +42,11 @@ export class AuthGuard implements CanActivate {
           return of(true);
         }),
         catchError((error) => {
-          if (error.status === 403) {
-            console.log('forbidden');
-          } else if (error.status === 401) {
-            console.log('unauthorized');
-          } else {
-            console.error('Error occurred in canActivate:', error);
-          }
           this.router.navigate(['/error']);
           return of(false);
         })
       );
     }
-
     return of(true);
   }
 }

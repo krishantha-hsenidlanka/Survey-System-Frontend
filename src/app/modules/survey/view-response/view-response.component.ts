@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 interface MappedResponse {
   id: string;
   userId: string;
-  answers: { question: string; answer: any }[]; // Explicitly define the type of answers array
+  answers: { question: string; answer: any }[];
 }
 
 @Component({
@@ -48,23 +48,18 @@ export class ViewResponseComponent implements OnInit {
                   responses,
                   this.surveyDetails
                 );
-                console.log('Mapped Responses:', this.responses);
               },
               (error) => {
-                console.error('Error fetching responses:', error);
-
                 if (error.status == 404) {
                   this.errorMessage = 'No one responded to your survey yet';
                 } else {
                   this.errorMessage = 'Error fetching responses!';
                 }
-
                 this.openSnackBar(this.errorMessage);
               }
             );
           },
           (error) => {
-            console.error('Error fetching survey details:', error);
             this.errorMessage = 'Error fetching survey details!';
             this.openSnackBar(this.errorMessage);
           }
@@ -73,25 +68,26 @@ export class ViewResponseComponent implements OnInit {
     });
   }
 
-  mapResponseToQuestions(responses: any[], surveyDetails: any): MappedResponse[] {
+  mapResponseToQuestions(
+    responses: any[],
+    surveyDetails: any
+  ): MappedResponse[] {
     return responses.map((response) => {
-      console.log('Response:', response);
       const mappedResponse: MappedResponse = {
         id: response.id,
         userId: response.userId,
         answers: [],
       };
-  
+
       response.answers.forEach((answer: Record<string, any>) => {
         for (const [questionId, answerValue] of Object.entries(answer)) {
           const questionDetails = this.findQuestionDetails(
             questionId,
             surveyDetails
           );
-  
+
           if (questionDetails) {
-            const questionTitle = questionDetails.title;
-  
+            const questionTitle = questionDetails.title
             mappedResponse.answers.push({
               question: questionTitle,
               answer: answerValue,
@@ -99,11 +95,10 @@ export class ViewResponseComponent implements OnInit {
           }
         }
       });
-  
+
       return mappedResponse;
     });
   }
-  
 
   findQuestionDetails(questionId: string, surveyDetails: any): any {
     for (const page of surveyDetails.pages) {

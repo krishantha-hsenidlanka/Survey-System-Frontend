@@ -20,7 +20,6 @@ export class ApiService {
   }
 
   updateSurvey(surveyId: string, surveyData: any): Observable<any> {
-    console.log('updating Survey ', surveyData);
     return this.http.put(`${this.apiUrl}/surveys/${surveyId}`, surveyData);
   }
 
@@ -63,7 +62,6 @@ export class ApiService {
   }
 
   updateUser(userId: string, userData: any): Observable<any> {
-    console.log('Updating user', userData);
     return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
   }
 
@@ -95,7 +93,6 @@ export class ApiService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.error(errorMessage);
     return throwError(errorMessage);
   }
 }

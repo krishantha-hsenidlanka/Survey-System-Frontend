@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -47,7 +49,7 @@ export class AdminDashboardComponent implements OnInit {
     }
   ];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.fetchDashboardData();
@@ -59,7 +61,11 @@ export class AdminDashboardComponent implements OnInit {
         this.dashboardData = data;
       },
       (error) => {
-        console.error('Error fetching dashboard data', error);
+        this.snackBar.open('Failed to fetch dashboard data', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        });
+        this.router.navigate(['/error']);
       }
     );
   }

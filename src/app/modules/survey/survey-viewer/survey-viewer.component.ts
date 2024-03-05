@@ -33,30 +33,31 @@ export class SurveyViewerComponent implements OnInit {
       if (this.surveyId) {
         this.apiService.getSurveyById(this.surveyId).subscribe(
           (surveyData) => {
-            console.log(surveyData);
             this.survey = surveyData;
             const survey = new Model(surveyData);
             this.surveyModel = survey;
             this.loading = false;
 
-            // Subscribe to the onComplete event
             this.surveyModel.onComplete.add((sender) => {
               this.onSurveyComplete(sender);
             });
           },
           (error) => {
-            console.error('Error fetching survey:', error);
+            this.openSnackBar('Error fetching survey!');
             this.loading = false;
 
             if (error.status == 404) {
               this.errorMessage = 'Survey not found!';
-              this.openSnackBar("Survey not found!");
+              this.openSnackBar('Survey not found!');
             } else if (error.status == 403) {
-              this.errorMessage = 'You do not have permission to view this survey!';
-              this.openSnackBar("You do not have permission to view this survey!");
+              this.errorMessage =
+                'You do not have permission to view this survey!';
+              this.openSnackBar(
+                'You do not have permission to view this survey!'
+              );
             } else {
               this.errorMessage = 'Error fetching survey!';
-              this.openSnackBar("Error fetching survey!");
+              this.openSnackBar('Error fetching survey!');
             }
           }
         );
@@ -65,8 +66,6 @@ export class SurveyViewerComponent implements OnInit {
   }
 
   onSurveyComplete(sender: { data: any }) {
-    console.log(sender.data);
-
     const apiData = {
       surveyId: this.surveyId,
       answers: [sender.data],
@@ -74,11 +73,9 @@ export class SurveyViewerComponent implements OnInit {
 
     this.apiService.submitSurveyResponse(apiData).subscribe(
       (response) => {
-        console.log('Survey response submitted successfully:', response);
         this.openSnackBar('Survey response submitted successfully!');
       },
       (error) => {
-        console.error('Error submitting survey response:', error);
         this.openSnackBar('Error submitting survey response!');
       }
     );
@@ -93,6 +90,6 @@ export class SurveyViewerComponent implements OnInit {
   }
 
   goToHome() {
-    this.router.navigate(['/dashboard']); 
+    this.router.navigate(['/dashboard']);
   }
 }

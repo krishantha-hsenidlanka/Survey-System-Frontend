@@ -25,7 +25,6 @@ export class SurveyDialogComponent {
   }
 
   surveyAnalytics(surveyId: string): void {
-   
-    console.log('Navigate to survey analytics for surveyId:', surveyId);
+    window.open(`/responses/${surveyId}`, '_blank');
   }
 }

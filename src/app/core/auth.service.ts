@@ -25,8 +25,6 @@ export class AuthService {
       tap((response: any) => {
         this.storeToken(response.token);
         this.isAdmin = response.roles.includes('ROLE_ADMIN');
-
-        console.log('Is admin', this.isAdmin);
         if (this.isAdmin == true) {
           this.redirectToAdmin();
         } else {
@@ -68,18 +66,14 @@ export class AuthService {
   checkAdminStatus(): Observable<boolean> {
     const url = `${this.apiUrl}/admin`;
     return this.http.get<{ success: boolean }>(url).pipe(
-      tap((response) => {
-        console.log('Admin Status Response:', response);
-        console.log('Is Admin:', response.success);
-      }),
       map((response) => response.success),
       catchError((error) => {
         if (error.status === 401) {
-          console.error('Unauthorized access');
+          //unautherized
           this.logout();
           return of(false);
         }
-        console.error('Error checking admin status:', error);
+        //error checking admin status
         return of(false);
       })
     );

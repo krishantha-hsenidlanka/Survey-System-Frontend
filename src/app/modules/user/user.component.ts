@@ -1,9 +1,7 @@
-// src/app/user/user.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from "../../shared/services/api.service"
+import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -12,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  user: any; 
+  user: any;
   changePasswordForm!: FormGroup;
 
   constructor(
@@ -22,21 +20,18 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Fetch user details on component initialization
     this.apiService.getUserDetails().subscribe(
       (userDetails) => {
         this.user = userDetails;
       },
       (error) => {
-        console.error('Error fetching user details:', error);
         this.snackBar.open('Failed to fetch user details', 'Close', {
           duration: 3000,
           panelClass: ['error-snackbar'],
-        })
+        });
       }
     );
 
-    // Initialize change password form
     this.changePasswordForm = this.formBuilder.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
@@ -51,7 +46,6 @@ export class UserComponent implements OnInit {
         newPassword: this.changePasswordForm.value.newPassword,
       };
 
-      // Call API to change password
       this.apiService.changePassword(passwordData).subscribe(
         (response) => {
           this.snackBar.open(response.message, 'Close', {
@@ -59,11 +53,9 @@ export class UserComponent implements OnInit {
             panelClass: ['success-snackbar'],
           });
 
-          // Reset the form after successful password change
           this.changePasswordForm.reset();
         },
         (error) => {
-          console.error('Error changing password:', error);
           this.snackBar.open('Failed to change password', 'Close', {
             duration: 3000,
             panelClass: ['error-snackbar'],

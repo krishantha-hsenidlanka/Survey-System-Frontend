@@ -32,7 +32,6 @@ export class EditUserModalComponent implements OnChanges {
         } else if(roles.length == 2){
            role = ['ROLE_ADMIN'];
         } 
-      console.log('roles', roles);
       // Initialize updatedUser
       this.updatedUser = {
         username: this.user.username,
@@ -46,11 +45,8 @@ export class EditUserModalComponent implements OnChanges {
   getRoles(userRole: any): string {
     const roleMatch = userRole && userRole.match(/name=(\w+)/);
     const roleName = roleMatch ? roleMatch[1] : '';
-  
-  
     return roleName == 'ROLE_ADMIN' ? 'ROLE_ADMIN' : 'ROLE_USER';
   }
-  
 
   onSaveChanges(): void {
     console.log('onSaveChanges', this.updatedUser);
@@ -58,7 +54,7 @@ export class EditUserModalComponent implements OnChanges {
     this.updateUser.emit(this.updatedUser);
     this.updatedUser = {};
   }
-
+  
   onCloseModal(): void {
     this.closeModal.emit();
   }

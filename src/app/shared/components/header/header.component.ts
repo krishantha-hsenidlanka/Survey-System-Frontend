@@ -47,12 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private updateIcons(isDarkTheme: boolean): void {
-    console.log('Header is loading');
-
     this.icons = [];
 
     if (this.isLoggedIn()) {
-      // Add icons for logged-in users
+      // icons and texts
       this.icons.push({
         tooltip: 'My Surveys',
         icon: 'description',
@@ -61,11 +59,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
       this.icons.push({
-        tooltip: "My Responses",
+        tooltip: 'My Responses',
         icon: 'assignment',
         route: 'my-submissions',
         action: () => this.navigateToMyResponses(),
-      })
+      });
 
       if (this.isAdmin()) {
         this.icons.push({
@@ -113,8 +111,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private updateActiveStatus(): void {
-    console.log('Updating active status for icons');
-
     this.icons.forEach((icon) => {
       icon.active = this.currentRoute.includes(icon.route);
     });
@@ -150,7 +146,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.authService.checkAdminStatus().subscribe((isAdmin) => {
         this.isAdminUser = isAdmin;
         this.updateHeader();
-        console.log('Header isAdmin', this.isAdminUser);
       });
     }
     return this.isAdminUser || false;

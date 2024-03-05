@@ -3,14 +3,13 @@ import { ApiService } from '../../shared/services/api.service';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../../core/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyPromptDialogComponent } from '../survey/survey-prompt-dialog/survey-prompt-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   username: string | undefined;
@@ -18,12 +17,11 @@ export class DashboardComponent implements OnInit {
   surveys$: Observable<any[]> | undefined;
   surveysLoaded: boolean = false;
 
-
   constructor(
     private apiService: ApiService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -32,35 +30,33 @@ export class DashboardComponent implements OnInit {
     this.updateCurrentTime();
   }
 
-  
-private loadSurveys() {
-  this.apiService.getSurveysForLoggedInUser().subscribe(
-    (response) => {
-      this.surveys$ = of(response as any[]);  
-      this.surveysLoaded = true;
-    },
-    (error) => {
-      if (error.status === 404) {
-        this.surveys$ = of([]);  // Empty observable
+  private loadSurveys() {
+    this.apiService.getSurveysForLoggedInUser().subscribe(
+      (response) => {
+        this.surveys$ = of(response as any[]);
         this.surveysLoaded = true;
-      } else {
-        console.error('Error fetching survey details:', error);
-        this.openSnackBar('Error fetching surveys. Please try again.');
+      },
+      (error) => {
+        if (error.status === 404) {
+          this.surveys$ = of([]);
+          this.surveysLoaded = true;
+        } else {
+          console.error('Error fetching survey details:', error);
+          this.openSnackBar('Error fetching surveys. Please try again.');
+        }
       }
-    }
-  );
-}
-  
+    );
+  }
 
   private getUsername() {
     this.apiService.getUserDetails().subscribe(
       (userDetails) => {
         this.username = userDetails.username.toUpperCase();
-      },    
+      },
       (error) => {
-        console.error('Error fetching user details:', error);
+        this.openSnackBar('Error fetching username. Please try again.');
       }
-    )
+    );
   }
 
   private updateCurrentTime() {
@@ -71,12 +67,7 @@ private loadSurveys() {
   }
 
   navigateToSurvey(surveyId: string) {
-    try{
-      window.open(`/survey/edit/${surveyId}`, '_blank');
-
-    } catch(e){
-      console.log("Error in navigating: " + e);
-    }
+    window.open(`/survey/edit/${surveyId}`, '_blank');
   }
 
   navigateToViewSurvey(surveyId: string) {
@@ -88,12 +79,10 @@ private loadSurveys() {
   }
 
   deleteSurvey(surveyId: string) {
-    this.apiService.deleteSurveyById(surveyId).subscribe(
-      (response) => {
-        this.loadSurveys();
-        this.openSnackBar(response.message);
-      }
-    );
+    this.apiService.deleteSurveyById(surveyId).subscribe((response) => {
+      this.loadSurveys();
+      this.openSnackBar(response.message);
+    });
   }
 
   createNewSurvey() {
@@ -107,16 +96,16 @@ private loadSurveys() {
             {
               name: 'FirstName',
               title: 'Enter your first name:',
-              type: 'text'
+              type: 'text',
             },
             {
               name: 'LastName',
               title: 'Enter your last name:',
-              type: 'text'
-            }
-          ]
-        }
-      ]
+              type: 'text',
+            },
+          ],
+        },
+      ],
     };
 
     this.apiService.createSurvey(newSurveyData).subscribe(
@@ -126,7 +115,6 @@ private loadSurveys() {
         this.navigateToSurvey(newSurveyId);
       },
       (error) => {
-        console.error('Error creating survey:', error);
         this.openSnackBar('Error creating survey. Please try again.');
       }
     );
@@ -134,9 +122,9 @@ private loadSurveys() {
 
   openGenerateSurveyDialog() {
     const dialogRef = this.dialog.open(SurveyPromptDialogComponent, {
-      width: '90vh', 
+      width: '90vh',
     });
-  
+
     dialogRef.afterClosed().subscribe(
       (result: string | undefined) => {
         if (result) {
@@ -146,12 +134,10 @@ private loadSurveys() {
         }
       },
       (error) => {
-        console.error('Error in dialog afterClosed:', error);
         this.openSnackBar('Error processing survey. Please try again.');
       }
     );
   }
-  
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {

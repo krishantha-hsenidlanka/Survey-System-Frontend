@@ -40,12 +40,10 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
         this.apiService.getSurveyById(this.surveyId).subscribe(
           (surveyConfig) => {
             this.surveyData = surveyConfig;
-            console.log('Survey configuration:', this.surveyData);
             this.fetchSurveyResponses();
           },
           (error) => {
             this.handleErrorResponse(error);
-
           }
         );
       }
@@ -57,7 +55,6 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
       (responses) => {
         this.responseData = this.extractAnswers(responses);
         this.loading = false;
-        console.log('Responses:', this.responseData);
         this.renderSurveyData();
       },
       (error) => {
@@ -74,9 +71,6 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
         this.responseData
       );
       vizPanel.render('surveyDashboardContainer');
-
-      // console.log('Before removal:', this.el.nativeElement.innerHTML);
-
       this.hideElementWithTimeout('.sa-commercial', 100000, 0.1);
     }, 1000);
   }
@@ -116,19 +110,16 @@ export class ViewSurveyAnalyticsComponent implements OnInit {
 
     const hideInterval = setInterval(() => {
       const element = this.el.nativeElement.querySelector(selector);
-      console.log(currentTime);
-
       if (element) {
         element.style.visibility = 'hidden';
         element.style.display = 'none';
-        // console.log('Element found and hidden:', this.el.nativeElement.innerHTML);
-        clearInterval(hideInterval); // Stop the interval once the element is found and hidden
+        clearInterval(hideInterval);
       } else {
         currentTime += interval;
         interval += interval;
         if (currentTime >= totalTime) {
           console.log('Element not found within the specified time.');
-          clearInterval(hideInterval); // Stop the interval if the specified time is exceeded
+          clearInterval(hideInterval);
         }
       }
     }, interval);

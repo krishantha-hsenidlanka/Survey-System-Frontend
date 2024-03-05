@@ -1,5 +1,3 @@
-// register.component.ts
-
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../shared/services/api.service';
@@ -46,12 +44,10 @@ export class RegisterComponent {
         .registerUser(userData)
         .subscribe(
           (response) => {
-            console.log('User registered successfully:', response);
             this.openSnackBar('User registered successfully!');
             this.router.navigate(['/verify']);
           },
           (error) => {
-            console.error('Error registering user:', error);
             if (error.status == 500)
               this.openSnackBar(
                 'Something went wrong! User registration failed!'

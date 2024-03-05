@@ -5,9 +5,9 @@
 </div>
 
 <div *ngIf="!loading && survey">
-  <!-- Your survey display logic goes here -->
   <survey [model]="surveyModel"></survey>
 </div>
+
 <div *ngIf="!loading && !survey" class="flex justify-center items-center h-screen">
   <div class="text-center">
     <mat-icon class="text-red-500 text-9xl mb-4 !w-auto !h-auto">error</mat-icon>

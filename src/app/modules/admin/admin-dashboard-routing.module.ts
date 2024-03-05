@@ -1,8 +1,6 @@
-// admin-dashboard-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { SettingsComponent } from './settings/settings.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
@@ -18,14 +16,12 @@ const adminDashboardRoutes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'home', component: DashboardComponent },
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'settings', component: SettingsComponent },
       { path: 'users', component: UsersComponent },
       { path: 'surveys', component: SurveysComponent },
       { path: 'logs', component: LogComponent },
-      // Add more child routes for other admin-related components
     ],
     canActivate: [AuthGuard],
-    data: { role: "admin" }
+    data: { role: 'admin' },
   },
 ];
 

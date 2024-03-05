@@ -1,11 +1,9 @@
-// admin-dashboard.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminDashboardRoutingModule } from './admin-dashboard-routing.module';
-import { SettingsComponent } from './settings/settings.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { UsersComponent } from './users/users.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [AdminDashboardComponent, SettingsComponent, SideNavComponent, UsersComponent, SurveysComponent, EditUserModalComponent, SurveyDialogComponent, LogComponent],
+  declarations: [AdminDashboardComponent, SideNavComponent, UsersComponent, SurveysComponent, EditUserModalComponent, SurveyDialogComponent, LogComponent],
   imports: [CommonModule, MatSidenavModule, MatProgressSpinnerModule, MatDialogModule, MatMenuModule, MatListModule, AdminDashboardRoutingModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
   ],
 })

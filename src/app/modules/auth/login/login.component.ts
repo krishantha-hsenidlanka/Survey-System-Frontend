@@ -6,13 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   loginForm: FormGroup;
   hidePassword = true;
   loading = false;
-
 
   constructor(
     private fb: FormBuilder,
@@ -21,7 +20,7 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -30,23 +29,28 @@ export class LoginComponent {
       this.loading = true;
       const credentials = this.loginForm.value;
 
-      this.authService.login(credentials).subscribe(
-        (response) => {
-          console.log(response);
-          this.openSnackBar('Login successful');
-        },
-        (error) => {
-          console.error(error);
-          if(error.error.message == "Bad credentials"){
-            this.openSnackBar("Invalid username or password. Please try again");
-          } else if(error.error.message == "User is disabled"){
-            this.openSnackBar("Account not activated. Please verify your account via email");
+      this.authService
+        .login(credentials)
+        .subscribe(
+          (response) => {
+            this.openSnackBar('Login successful');
+          },
+          (error) => {
+            if (error.error.message == 'Bad credentials') {
+              this.openSnackBar(
+                'Invalid username or password. Please try again'
+              );
+            } else if (error.error.message == 'User is disabled') {
+              this.openSnackBar(
+                'Account not activated. Please verify your account via email'
+              );
+            } else
+              this.openSnackBar(`Login failed. Reason: ${error.error.message}`);
           }
-          else this.openSnackBar(`Login failed. Reason: ${error.error.message}`);
-        }
-      ).add(() => {
-        this.loading = false;
-      });
+        )
+        .add(() => {
+          this.loading = false;
+        });
     }
   }
 
@@ -54,7 +58,7 @@ export class LoginComponent {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
       horizontalPosition: 'center',
-      verticalPosition: 'bottom'
+      verticalPosition: 'bottom',
     });
   }
 }

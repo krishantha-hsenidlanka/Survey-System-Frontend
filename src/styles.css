@@ -1,32 +1,33 @@
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
-    --primary: blue;
-    --secondary: rgb(128, 0, 122);
-    /* --foreground: yellow; */
-    --red: rgb(88, 24, 24);
-    --yellow: rgb(147, 241, 118);
-    font-family: "Poppins", sans-serif;
-    --ln-gradient-1: linear-gradient(to right, #654de6, #2700ff);
-    --ln-gradient-2: linear-gradient(to right, #2700ff, #1f05b1);
-    --ln-gradient-h: linear-gradient(to left,#16008f, #155aed, #16008f);
-    --ln-gradient-h-dark: linear-gradient(to left,#001935, #02153d, #12011a);
-    --ln-gradient-dark: linear-gradient(to left, var(--dark-color-2), var(--dark-color-1), var(--dark-color-2));
-    --dark-color-1: #054a6b;
-    --dark-color-2: #05011a;
-
-  }
-
+  --primary: blue;
+  --secondary: rgb(128, 0, 122);
+  /* --foreground: yellow; */
+  --red: rgb(88, 24, 24);
+  --yellow: rgb(147, 241, 118);
+  font-family: "Poppins", sans-serif;
+  --ln-gradient-1: linear-gradient(to right, #654de6, #2700ff);
+  --ln-gradient-2: linear-gradient(to right, #2700ff, #1f05b1);
+  --ln-gradient-h: linear-gradient(to left, #16008f, #155aed, #16008f);
+  --ln-gradient-h-dark: linear-gradient(to left, #001935, #02153d, #12011a);
+  --ln-gradient-dark: linear-gradient(
+    to left,
+    var(--dark-color-2),
+    var(--dark-color-1),
+    var(--dark-color-2)
+  );
+  --dark-color-1: #054a6b;
+  --dark-color-2: #05011a;
+}
 
 .snackbar-danger {
-  background-color: #d9534f; 
-  color: #fff; 
+  background-color: #d9534f;
+  color: #fff;
 }
 
 .rounded-btn {
@@ -41,15 +42,15 @@
   box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.329) !important;
 }
 
-.rounded-btn mat-icon{
+.rounded-btn mat-icon {
   font-size: xx-large !important;
   width: auto !important;
   height: auto !important;
 }
 
-
-
-
-.white-spinner .mat-progress-spinner circle, .mat-spinner circle, .white-spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+.white-spinner .mat-progress-spinner circle,
+.mat-spinner circle,
+.white-spinner ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: #ffffff !important;
-  }
+}

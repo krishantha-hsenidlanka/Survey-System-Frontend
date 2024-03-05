@@ -11,7 +11,6 @@ import { ViewResponseComponent } from './modules/survey/view-response/view-respo
 import { ViewSurveyAnalyticsComponent } from './modules/survey/view-survey-analytics/view-survey-analytics.component';
 import { ViewResponsePageComponent } from './modules/survey/view-response-page/view-response-page.component';
 import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
-import { SettingsComponent } from './modules/admin/settings/settings.component';
 import { AdminDashboardModule } from './modules/admin/admin-dashboard.module';
 import { AdminDashboardRoutingModule } from './modules/admin/admin-dashboard-routing.module';
 import { UserComponent } from './modules/user/user.component';
@@ -84,6 +83,7 @@ const routes: Routes = [
     path: 'error',
     component: ErrorComponent,
   },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];

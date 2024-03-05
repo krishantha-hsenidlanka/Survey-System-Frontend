@@ -28,7 +28,6 @@ export class LogComponent implements OnInit {
         this.loading = false;
       },
       (error) => {
-        console.error('Error fetching logs:', error);
         this.snackBar.open('Failed to fetch logs', 'Close', {
           duration: 3000,
           panelClass: ['error-snackbar'],

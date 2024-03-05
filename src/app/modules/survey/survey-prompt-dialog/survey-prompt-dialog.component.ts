@@ -45,7 +45,6 @@ export class SurveyPromptDialogComponent {
       verticalPosition: 'bottom',
       panelClass: ['snackbar-danger'], 
     };
-
     this.snackBar.open(message, 'Close', config);
   }
 }

@@ -33,7 +33,6 @@
         <label class="block text-gray-700 text-sm font-bold mb-2" for="roles"
           >Roles</label
         >
-        <!-- Use select box for roles -->
         <select
           [(ngModel)]="updatedUser.roles"
           name="roles"
@@ -45,12 +44,10 @@
           </option>
         </select>
       </div>
-
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="enabled"
           >Enabled</label
         >
-        <!-- Use checkbox for enabled -->
         <input
           [(ngModel)]="updatedUser.enabled"
           name="enabled"
