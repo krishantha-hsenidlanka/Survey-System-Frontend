@@ -44,6 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { MySubmissionsViewerComponent } from './modules/survey/my-submissions-viewer/my-submissions-viewer.component';
 import { VerifyUserComponent } from './modules/auth/verify-user/verify-user.component';
+import { ErrorComponent } from './modules/error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +63,7 @@ import { VerifyUserComponent } from './modules/auth/verify-user/verify-user.comp
     NotFoundComponent,
     MySubmissionsViewerComponent,
     VerifyUserComponent,
+    ErrorComponent,
 
   ],
   imports: [

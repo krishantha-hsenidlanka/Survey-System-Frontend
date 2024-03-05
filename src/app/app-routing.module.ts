@@ -18,18 +18,23 @@ import { UserComponent } from './modules/user/user.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { MySubmissionsViewerComponent } from './modules/survey/my-submissions-viewer/my-submissions-viewer.component';
 import { VerifyUserComponent } from './modules/auth/verify-user/verify-user.component';
+import { ErrorComponent } from './modules/error/error.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [NoAuthGuard],
+  },
   {
     path: 'register',
     component: RegisterComponent,
     canActivate: [NoAuthGuard],
   },
-  { 
-    path: 'verify', 
+  {
+    path: 'verify',
     component: VerifyUserComponent,
-    canActivate: [NoAuthGuard], 
+    canActivate: [NoAuthGuard],
   },
 
   {
@@ -75,7 +80,10 @@ const routes: Routes = [
     path: 'not-found',
     component: NotFoundComponent,
   },
-
+  {
+    path: 'error',
+    component: ErrorComponent,
+  },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
