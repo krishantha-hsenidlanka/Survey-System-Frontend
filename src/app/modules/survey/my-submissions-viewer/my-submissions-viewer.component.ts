@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, catchError, map, of, switchMap } from 'rxjs';
@@ -19,6 +19,7 @@ export class MySubmissionsViewerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
+    private router: Router,
     private snackBar: MatSnackBar
   ) {
     this.responses = [];
@@ -82,6 +83,10 @@ export class MySubmissionsViewerComponent implements OnInit {
 
   getSurveyTitle(surveyId: string): string {
     return this.surveyTitles[surveyId] || 'Unknown Survey';
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
   }
 
   openSnackBar(message: string) {

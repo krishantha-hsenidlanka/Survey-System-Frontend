@@ -12,39 +12,56 @@
       <div *ngFor="let response of responses">
         <div class="bg-white border rounded-lg shadow-md p-6">
           <p class="text-lg font-semibold text-gray-800">
-            Survey: <a href="./survey/{{ response.surveyId }}" target="_blank" class="text-blue-500"> {{ getSurveyTitle(response.surveyId) }}</a>
+            Survey:
+            <a
+              href="./survey/{{ response.surveyId }}"
+              target="_blank"
+              class="text-blue-500"
+            >
+              {{ getSurveyTitle(response.surveyId) }}</a
+            >
           </p>
           <p class="text-gray-600">Response ID: {{ response.id }}</p>
 
-          <div *ngIf="response.answers && response.answers.length > 0" class="mt-4">
+          <div
+            *ngIf="response.answers && response.answers.length > 0"
+            class="mt-4"
+          >
             <p class="text-gray-600 font-semibold">Answers:</p>
             <table class="min-w-full border border-gray-300 bg-gray-100">
               <thead>
                 <tr>
-                  <th class="border border-gray-300 py-2 px-4 font-semibold bg-gray-200">
+                  <th
+                    class="border border-gray-300 py-2 px-4 font-semibold bg-gray-200"
+                  >
                     Question
                   </th>
-                  <th class="border border-gray-300 py-2 px-4 font-semibold bg-gray-200">
+                  <th
+                    class="border border-gray-300 py-2 px-4 font-semibold bg-gray-200"
+                  >
                     Answer
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <ng-container *ngFor="let answer of response.answers">
-                    <tr *ngFor="let entry of getKeys(answer)">
-                      <td class="border border-gray-300 py-2 px-4">
-                        {{ getQuestionTitle(response.surveyId, entry) }}
-                      </td>
-                      <td class="border border-gray-300 py-2 px-4">
-                        {{ answer[entry] }}
-                      </td>
-                    </tr>
-                  </ng-container>
+                  <tr *ngFor="let entry of getKeys(answer)">
+                    <td class="border border-gray-300 py-2 px-4">
+                      {{ getQuestionTitle(response.surveyId, entry) }}
+                    </td>
+                    <td class="border border-gray-300 py-2 px-4">
+                      {{ answer[entry] }}
+                    </td>
+                  </tr>
+                </ng-container>
               </tbody>
             </table>
           </div>
 
-          <div *ngIf="!response.answers || response.answers.length === 0" class="mt-4">
+          <div
+            *ngIf="!response.answers || response.answers.length === 0"
+            class="mt-4"
+          >
             <p class="text-gray-600">No answers provided.</p>
           </div>
         </div>
@@ -54,5 +71,17 @@
 </div>
 
 <div *ngIf="!loading && responses.length === 0" class="mt-8">
-  <p class="text-gray-600">{{ errorMessage }}</p>
+  <div class="flex flex-col items-center justify-center h-screen space-y-4">
+    <mat-icon class="text-9xl text-red-500 !w-auto !h-auto">error</mat-icon>
+    <h1 class="text-4xl font-bold text-gray-800">{{ errorMessage }}</h1>
+    <button
+      mat-button
+      color="primary"
+      class="bg-blue-500 text-white px-4 py-2 rounded"
+      (click)="goToHome()"
+    >
+      <mat-icon> home </mat-icon>
+      Go back to Home
+    </button>
+  </div>
 </div>
