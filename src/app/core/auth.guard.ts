@@ -1,4 +1,3 @@
-// auth.guard.ts
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
@@ -11,7 +10,6 @@ import {
   Observable,
   catchError,
   combineLatest,
-  forkJoin,
   of,
   switchMap,
 } from 'rxjs';
@@ -26,26 +24,21 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
+    //Authentication check 
     const isAuthenticated = this.authService.isAuthenticated();
-
-    console.log('Is Authenticated: ', isAuthenticated);
-
     if (!isAuthenticated) {
       this.router.navigate(['/login']);
       return of(false);
     }
-
+    // Admin role check
     if (route.data['role'] === 'admin') {
       console.log('admin required');
       return this.authService.checkAdminStatus().pipe(
         switchMap((isAdmin) => {
-          console.log('Is User Admin: ', isAdmin);
-
           if (!isAdmin) {
             this.router.navigate(['/home']);
             return of(false);
           }
-
           return of(true);
         }),
         catchError((error) => {

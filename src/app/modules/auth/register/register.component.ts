@@ -12,13 +12,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-
   registerForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
   loading = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -38,26 +42,32 @@ export class RegisterComponent {
         return;
       }
 
-      this.apiService.registerUser(userData).subscribe(
-        (response) => {
-          console.log('User registered successfully:', response);
-          this.openSnackBar('User registered successfully!');
-          this.router.navigate(['/verify']);
-        },
-        (error) => {
-          console.error('Error registering user:', error);
-          if(error.status == 500) this.openSnackBar('Something went wrong! User registration failed!'); 
-          else this.openSnackBar(error.error.message);
-        }
-      ).add(() => {
-        this.loading = false; 
-      });
+      this.apiService
+        .registerUser(userData)
+        .subscribe(
+          (response) => {
+            console.log('User registered successfully:', response);
+            this.openSnackBar('User registered successfully!');
+            this.router.navigate(['/verify']);
+          },
+          (error) => {
+            console.error('Error registering user:', error);
+            if (error.status == 500)
+              this.openSnackBar(
+                'Something went wrong! User registration failed!'
+              );
+            else this.openSnackBar(error.error.message);
+          }
+        )
+        .add(() => {
+          this.loading = false;
+        });
     }
   }
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {
-      duration: 3000, 
+      duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
