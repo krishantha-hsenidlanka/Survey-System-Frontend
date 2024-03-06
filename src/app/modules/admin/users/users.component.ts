@@ -11,6 +11,7 @@ export class UsersComponent implements OnInit {
   users: any[] = [];
   selectedUser: any | null = null;
   updatedUser: any = {};
+  loading: boolean = true;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {}
 
@@ -18,8 +19,10 @@ export class UsersComponent implements OnInit {
     this.apiService.getAllUsers().subscribe(
       (data: any[]) => {
         this.users = data;
+        this.loading = false;
       },
       (error: any) => {
+        this.loading = false;
         this.snackBar.open('Failed to fetch users', 'Close', {
           duration: 3000,
           panelClass: ['error-snackbar'],

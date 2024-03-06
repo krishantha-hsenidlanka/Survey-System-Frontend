@@ -45,7 +45,8 @@
               "src/styles.css",
               "src/dark-theme.css",
               "node_modules/survey-core/defaultV2.min.css",
-              "node_modules/survey-creator-core/survey-creator-core.min.css"
+              "node_modules/survey-creator-core/survey-creator-core.min.css",
+              "node_modules/survey-analytics/survey.analytics.css"
             ],
             "scripts": []
           },
@@ -115,7 +116,8 @@
               "src/styles.css",
               "src/dark-theme.css",
               "node_modules/survey-core/defaultV2.min.css",
-              "node_modules/survey-creator-core/survey-creator-core.min.css"
+              "node_modules/survey-creator-core/survey-creator-core.min.css",
+              "node_modules/survey-analytics/survey.analytics.css"
             ],
             "scripts": []
           }

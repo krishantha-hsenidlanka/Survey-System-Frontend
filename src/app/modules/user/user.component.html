@@ -9,8 +9,13 @@
           alt="User Profile"
           class="rounded-full h-16 w-16 mb-4"
         />
-        <p class="text-lg font-semibold mb-2">{{ user.username }}</p>
-        <p class="text-gray-500">{{ user.email }}</p>
+        <div *ngIf="!loading">
+          <p class="text-lg font-semibold mb-2">{{ user.username }}</p>
+          <p class="text-gray-500">{{ user.email }}</p>
+        </div>
+      </div>
+      <div *ngIf="loading" class="text-center text-sm mt-5 items-center flex justify-center">
+        <mat-spinner [diameter]="40"></mat-spinner>
       </div>
     </mat-card-content>
 
@@ -58,14 +63,27 @@
           />
         </mat-form-field>
 
-        <button
-          class="rounded-btn"
-          mat-raised-button
-          color="primary"
-          type="submit"
-        >
-          Change Password
-        </button>
+        <div *ngIf="!loadingBtn">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="w-full !py-5 rounded-btn"
+          >
+            Change Password
+          </button>
+        </div>
+        <div *ngIf="loadingBtn">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="w-full !py-5 !rounded-full white-spinner !bg-gray-100"
+            [disabled]="loadingBtn"
+          >
+            <mat-spinner diameter="20" spinnerColor="#fff"></mat-spinner>
+          </button>
+        </div>
       </form>
     </mat-card-content>
   </mat-card>

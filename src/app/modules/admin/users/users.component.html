@@ -10,7 +10,7 @@
         <th class="py-2 px-4 border-b">Registration Date</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody  *ngIf="!loading">
       <tr *ngFor="let user of users">
         <td class="py-2 px-4 border-b"><mat-icon>person</mat-icon></td>
         <td class="py-2 px-4 border-b">{{ user.username }}</td>
@@ -29,6 +29,9 @@
       </tr>
     </tbody>
   </table>
+  <div *ngIf="loading" class="text-center mt-5 items-center flex justify-center h-80">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>
 <app-edit-user-modal
   *ngIf="selectedUser"

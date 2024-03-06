@@ -8,7 +8,10 @@
         card.icon
       }}</mat-icon>
       <p class="text-lg font-semibold text-slate-600">{{ card.label }}</p>
-      <p class="text-2xl font-bold">{{ dashboardData?.[card.dataKey] }}</p>
+      <p *ngIf="!loading" class="text-2xl font-bold">{{ dashboardData?.[card.dataKey] }}</p>
+      <div *ngIf="loading" class="text-center text-sm mt-5 items-center flex justify-center">
+        <mat-spinner [diameter]="40"></mat-spinner>
+      </div>
     </div>
   </ng-container>
 </div>

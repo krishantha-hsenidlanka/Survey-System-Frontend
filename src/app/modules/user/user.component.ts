@@ -12,6 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserComponent implements OnInit {
   user: any;
   changePasswordForm!: FormGroup;
+  loadingBtn: boolean = false;
+  loading: boolean = true;
+
 
   constructor(
     private apiService: ApiService,
@@ -22,9 +25,11 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.apiService.getUserDetails().subscribe(
       (userDetails) => {
+        this.loading = false;
         this.user = userDetails;
       },
       (error) => {
+        this.loading = false;
         this.snackBar.open('Failed to fetch user details', 'Close', {
           duration: 3000,
           panelClass: ['error-snackbar'],
@@ -41,6 +46,7 @@ export class UserComponent implements OnInit {
 
   onSubmitChangePassword() {
     if (this.changePasswordForm.valid) {
+      this.loadingBtn = true;
       const passwordData = {
         currentPassword: this.changePasswordForm.value.currentPassword,
         newPassword: this.changePasswordForm.value.newPassword,
@@ -48,6 +54,7 @@ export class UserComponent implements OnInit {
 
       this.apiService.changePassword(passwordData).subscribe(
         (response) => {
+          this.loadingBtn = false;
           this.snackBar.open(response.message, 'Close', {
             duration: 3000,
             panelClass: ['success-snackbar'],
@@ -56,6 +63,7 @@ export class UserComponent implements OnInit {
           this.changePasswordForm.reset();
         },
         (error) => {
+          this.loadingBtn = false;
           this.snackBar.open('Failed to change password', 'Close', {
             duration: 3000,
             panelClass: ['error-snackbar'],

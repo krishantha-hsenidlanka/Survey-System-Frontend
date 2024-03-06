@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AdminDashboardComponent implements OnInit {
   dashboardData: any;
+  loading: boolean = true;
   cards: any[] = [
     {
       icon: 'description',
@@ -58,9 +59,11 @@ export class AdminDashboardComponent implements OnInit {
   private fetchDashboardData(): void {
     this.apiService.getDashboardSummary().subscribe(
       (data) => {
+        this.loading = false;
         this.dashboardData = data;
       },
       (error) => {
+        this.loading = false;
         this.snackBar.open('Failed to fetch dashboard data', 'Close', {
           duration: 3000,
           panelClass: ['error-snackbar'],
