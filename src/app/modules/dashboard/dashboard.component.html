@@ -72,6 +72,14 @@
                   <button
                     class="item-button"
                     mat-menu-item
+                    (click)="copySurveyLink(survey.id)"
+                  >
+                    <mat-icon>content_copy</mat-icon>
+                    <span>Copy Survey Link</span>
+                  </button>
+                  <button
+                    class="item-button"
+                    mat-menu-item
                     (click)="navigateToViewSurvey(survey.id)"
                   >
                     <mat-icon>remove_red_eye</mat-icon>

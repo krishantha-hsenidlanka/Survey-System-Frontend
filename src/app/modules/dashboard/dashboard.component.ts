@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { SurveyPromptDialogComponent } from '../survey/survey-prompt-dialog/survey-prompt-dialog.component';
 import { DeleteConfirmationDialogComponent } from '../survey/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
@@ -22,7 +23,8 @@ export class DashboardComponent implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit() {
@@ -142,6 +144,12 @@ export class DashboardComponent implements OnInit {
         this.openSnackBar('Error processing survey. Please try again.');
       }
     );
+  }
+
+  copySurveyLink(surveyId: string) {
+    const surveyLink = `${window.location.origin}/survey/${surveyId}`;
+    this.clipboard.copy(surveyLink);
+    this.openSnackBar('Survey link copied to clipboard');
   }
 
   openSnackBar(message: string) {

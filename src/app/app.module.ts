@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormlyModule } from '@ngx-formly/core';
@@ -69,6 +69,7 @@ import { DeleteConfirmationDialogComponent } from './modules/survey/delete-confi
     RouterOutlet,
     BrowserModule,
     BrowserAnimationsModule,
+    ClipboardModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
