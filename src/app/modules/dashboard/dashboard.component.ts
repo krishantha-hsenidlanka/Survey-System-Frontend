@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveyPromptDialogComponent } from '../survey/survey-prompt-dialog/survey-prompt-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../survey/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,7 +42,6 @@ export class DashboardComponent implements OnInit {
           this.surveys$ = of([]);
           this.surveysLoaded = true;
         } else {
-          console.error('Error fetching survey details:', error);
           this.openSnackBar('Error fetching surveys. Please try again.');
         }
       }
@@ -79,9 +79,15 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteSurvey(surveyId: string) {
-    this.apiService.deleteSurveyById(surveyId).subscribe((response) => {
-      this.loadSurveys();
-      this.openSnackBar(response.message);
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.apiService.deleteSurveyById(surveyId).subscribe((response) => {
+          this.loadSurveys();
+          this.openSnackBar(response.message);
+        });
+      }
     });
   }
 
@@ -128,7 +134,6 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result: string | undefined) => {
         if (result) {
-          console.log(result);
           this.loadSurveys();
           this.navigateToSurvey(result);
         }

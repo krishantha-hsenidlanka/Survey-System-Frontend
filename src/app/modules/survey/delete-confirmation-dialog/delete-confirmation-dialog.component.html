@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>Confirm Deletion</h2>
+<div mat-dialog-content>Are you sure you want to <span class="text-red-500 font-bold">delete</span> this survey?</div>
+<div class="!ml-auto !mr-0" mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button color="warn" class="hover:bg-red-900 hover:!text-white transition duration-300 ease-in-out" mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+</div>

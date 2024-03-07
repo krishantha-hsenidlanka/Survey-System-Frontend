@@ -32,7 +32,6 @@ export class AuthGuard implements CanActivate {
     }
     // Admin role check
     if (route.data['role'] === 'admin') {
-      console.log('admin required');
       return this.authService.checkAdminStatus().pipe(
         switchMap((isAdmin) => {
           if (!isAdmin) {

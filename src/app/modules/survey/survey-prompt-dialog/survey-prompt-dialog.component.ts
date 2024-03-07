@@ -11,6 +11,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 export class SurveyPromptDialogComponent {
   prompt: string = '';
   loading: boolean = false;
+  error: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<SurveyPromptDialogComponent>,
@@ -25,6 +26,7 @@ export class SurveyPromptDialogComponent {
 
   generateSurvey() {
     this.loading = true;
+    this.error = false;
     this.apiService.generateSurvey(this.prompt).subscribe(
       (response) => {
         this.loading = false;
@@ -32,6 +34,7 @@ export class SurveyPromptDialogComponent {
       },
       (error) => {
         this.loading = false;
+        this.error = true;
         console.error('Error generating survey:', error);
         this.openSnackBar('Error generating survey. Please try again.');
       }

@@ -42,6 +42,7 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { MySubmissionsViewerComponent } from './modules/survey/my-submissions-viewer/my-submissions-viewer.component';
 import { VerifyUserComponent } from './modules/auth/verify-user/verify-user.component';
 import { ErrorComponent } from './modules/error/error.component';
+import { DeleteConfirmationDialogComponent } from './modules/survey/delete-confirmation-dialog/delete-confirmation-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { ErrorComponent } from './modules/error/error.component';
     MySubmissionsViewerComponent,
     VerifyUserComponent,
     ErrorComponent,
+    DeleteConfirmationDialogComponent,
 
   ],
   imports: [

@@ -42,11 +42,7 @@
               <mat-icon>analytics</mat-icon>
               <span>Survey Analytics</span>
             </button>
-            <button mat-menu-item>
-              <mat-icon>group</mat-icon>
-              <span>Access Roles</span>
-            </button>
-            <button mat-menu-item >
+            <button mat-menu-item (click)="deleteSurvey(survey.id)">
               <mat-icon color="warn">delete</mat-icon>
               <span>Delete Survey</span>
             </button>

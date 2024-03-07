@@ -16,6 +16,14 @@
       ></textarea>
     </mat-form-field>
   </div>
+  <div class="text-sm">
+    <div class="text-animate" *ngIf="loading">
+      It will take some time. Please wait...
+    </div>
+    <div class="text-gray-600" *ngIf="error">
+      Sometimes AI is not able to generate the survey. Please try again...
+    </div>
+  </div>
   <div class="flex justify-end space-x-2 w-full mt-4">
     <button mat-button color="warn" (click)="onNoClick()">Cancel</button>
     <button
@@ -25,7 +33,9 @@
       [disabled]="loading"
       (click)="generateSurvey()"
     >
-      <span *ngIf="loading" class="text-white text-base">AI is thinking...</span>
+      <span *ngIf="loading" class="text-white text-base"
+        >AI is thinking...</span
+      >
       <span class="text-white text-base" *ngIf="!loading">Generate</span>
     </button>
   </div>

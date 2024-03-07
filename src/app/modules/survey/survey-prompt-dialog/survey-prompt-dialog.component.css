@@ -1,0 +1,16 @@
+@keyframes colorChange {
+    0% {
+      color: #808080; 
+    }
+    50% {
+      color: #d3d3d3; 
+    }
+    100% {
+      color: #7f7f80;
+    }
+  }
+  
+  .text-animate {
+    animation: colorChange 2s infinite;
+  }
+  
