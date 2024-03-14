@@ -5,10 +5,29 @@
 </div>
 
 <div *ngIf="!loading && responses.length > 0">
-  <div class="container mx-auto mt-8 mb-4">
+  <div class="container mx-auto my-8">
     <h2 class="text-2xl font-bold mb-4">My Submissions</h2>
 
-    <div class="mt-4 space-y-6">
+    <div class="m-4 space-y-6">
+      <div class="flex justify-between items-center mb-4">
+        <button
+          mat-raised-button
+          color="secondary"
+          [disabled]="currentPage === 0"
+          (click)="onPageChange(currentPage - 1)"
+        >
+          Previous Page
+        </button>
+        <span>Page {{ currentPage + 1 }} of {{ pageCount }}</span>
+        <button
+          mat-raised-button
+          color="secondary"
+          [disabled]="responses.length < pageSize"
+          (click)="onPageChange(currentPage + 1)"
+        >
+          Next Page
+        </button>
+      </div>
       <div *ngFor="let response of responses">
         <div class="bg-white border rounded-lg shadow-md p-6">
           <p class="text-lg font-semibold text-gray-800">

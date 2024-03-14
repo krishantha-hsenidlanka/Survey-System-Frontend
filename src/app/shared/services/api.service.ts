@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -29,8 +29,12 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  getSurveysForLoggedInUser(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/surveys/user`);
+  getSurveysForLoggedInUser(page: number, size: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get(`${this.apiUrl}/surveys/user`, { params });
   }
 
   deleteSurveyById(surveyId: string): Observable<any> {
@@ -45,16 +49,22 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/responses/bySurvey/${surveyId}`);
   }
 
-  getMySubmissions(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/responses/byCurrentUser`);
+  getMySubmissions(page: number, size: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get(`${this.apiUrl}/responses/byCurrentUser`, { params });
   }
 
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/`);
   }
 
-  getSurveysByOwnerId(ownerId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/surveys/owner/${ownerId}`);
+  getSurveysByOwnerId(ownerId: string, page: number, size: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get(`${this.apiUrl}/surveys/owner/${ownerId}`, { params });
   }
 
   registerUser(userData: any): Observable<any> {

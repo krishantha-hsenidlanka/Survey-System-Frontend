@@ -1,6 +1,9 @@
 <h1 class="text-2xl font-bold mb-4 text-center">Survey Folders</h1>
 <mat-divider class="col-span-5"></mat-divider>
-<div *ngIf="!loading" class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 p-4">
+<div
+  *ngIf="!loading"
+  class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 p-4"
+>
   <ng-container *ngFor="let folder of folders">
     <div
       class="group p-4 border border-gray-200 rounded-md transition-transform transform hover:bg-slate-200 cursor-pointer"
@@ -11,12 +14,18 @@
       >
       <div class="font-semibold">{{ folder.name }}</div>
       <div class="text-gray-500 text-sm">{{ folder.created | date }}</div>
-      <span *ngIf="loadingSurveys && folder.name === selectedUserId" class="flex">
+      <span
+        *ngIf="loadingSurveys && folder.name === selectedUserId"
+        class="flex"
+      >
         <mat-spinner [diameter]="40"></mat-spinner>
       </span>
     </div>
   </ng-container>
 </div>
-<div *ngIf="loading" class="text-center mt-5 items-center flex justify-center h-80">
+<div
+  *ngIf="loading"
+  class="text-center mt-5 items-center flex justify-center h-80"
+>
   <mat-spinner></mat-spinner>
 </div>

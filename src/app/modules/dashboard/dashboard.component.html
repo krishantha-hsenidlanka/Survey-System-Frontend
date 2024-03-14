@@ -25,98 +25,119 @@
     </button>
   </div>
 
-  <ng-container *ngIf="surveysLoaded; else loading">
-    <!-- Check if surveys are present -->
-    <ng-container *ngIf="(surveys$ | async)?.length; else noSurveys">
-      <ng-container *ngIf="surveys$ | async as surveys">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div *ngFor="let survey of surveys" class="survey-item">
-            <div class="flex flex-col items-center justify-center">
-              <mat-icon
-                class="text-8xl mb-2 h-auto w-auto survey-icon"
-                (click)="navigateToSurvey(survey.id)"
-                >description</mat-icon
-              >
-              <div
-                class="text-lg font-bold text-gray-800 mb-2 text-center"
-                (click)="navigateToSurvey(survey.id)"
-              >
-                {{ survey.title }}
-              </div>
-              <div class="flex justify-between items-center text-cyan-900">
-                <button
-                  class="item-button"
-                  mat-icon-button
-                  (click)="navigateToViewSurvey(survey.id)"
-                  title="View Survey"
+  <div>
+    <ng-container *ngIf="surveysLoaded; else loading">
+      <!-- Check if surveys are present -->
+      <ng-container *ngIf="(surveys$ | async)?.length; else noSurveys">
+        <ng-container *ngIf="surveys$ | async as surveys">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div *ngFor="let survey of surveys" class="survey-item">
+              <div class="flex flex-col items-center justify-center">
+                <mat-icon
+                  class="text-8xl mb-2 h-auto w-auto survey-icon"
+                  (click)="navigateToSurvey(survey.id)"
+                  >description</mat-icon
                 >
-                  <mat-icon>remove_red_eye</mat-icon>
-                </button>
-                <button
-                  class="item-button"
-                  mat-icon-button
-                  (click)="navigateToSurveyResponses(survey.id)"
-                  title="Responses and Analytics"
+                <div
+                  class="text-lg font-bold text-gray-800 mb-2 text-center"
+                  (click)="navigateToSurvey(survey.id)"
                 >
-                  <mat-icon>analytics</mat-icon>
-                </button>
-                <button
-                  class="item-button"
-                  mat-icon-button
-                  [matMenuTriggerFor]="menu"
-                  aria-label="Survey Options"
-                >
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
+                  {{ survey.title }}
+                </div>
+                <div class="flex justify-between items-center text-cyan-900">
                   <button
                     class="item-button"
-                    mat-menu-item
-                    (click)="copySurveyLink(survey.id)"
-                  >
-                    <mat-icon>content_copy</mat-icon>
-                    <span>Copy Survey Link</span>
-                  </button>
-                  <button
-                    class="item-button"
-                    mat-menu-item
+                    mat-icon-button
                     (click)="navigateToViewSurvey(survey.id)"
+                    title="View Survey"
                   >
                     <mat-icon>remove_red_eye</mat-icon>
-                    <span>View Survey</span>
                   </button>
                   <button
                     class="item-button"
-                    mat-menu-item
-                    (click)="navigateToSurvey(survey.id)"
-                  >
-                    <mat-icon>edit</mat-icon>
-                    <span>Edit Survey</span>
-                  </button>
-                  <button
-                    class="item-button"
-                    mat-menu-item
+                    mat-icon-button
                     (click)="navigateToSurveyResponses(survey.id)"
+                    title="Responses and Analytics"
                   >
                     <mat-icon>analytics</mat-icon>
-                    <span>Survey Analytics</span>
                   </button>
                   <button
                     class="item-button"
-                    mat-menu-item
-                    (click)="deleteSurvey(survey.id)"
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    aria-label="Survey Options"
                   >
-                    <mat-icon color="warn">delete</mat-icon>
-                    <span>Delete Survey</span>
+                    <mat-icon>more_vert</mat-icon>
                   </button>
-                </mat-menu>
+                  <mat-menu #menu="matMenu">
+                    <button
+                      class="item-button"
+                      mat-menu-item
+                      (click)="copySurveyLink(survey.id)"
+                    >
+                      <mat-icon>content_copy</mat-icon>
+                      <span>Copy Survey Link</span>
+                    </button>
+                    <button
+                      class="item-button"
+                      mat-menu-item
+                      (click)="navigateToViewSurvey(survey.id)"
+                    >
+                      <mat-icon>remove_red_eye</mat-icon>
+                      <span>View Survey</span>
+                    </button>
+                    <button
+                      class="item-button"
+                      mat-menu-item
+                      (click)="navigateToSurvey(survey.id)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit Survey</span>
+                    </button>
+                    <button
+                      class="item-button"
+                      mat-menu-item
+                      (click)="navigateToSurveyResponses(survey.id)"
+                    >
+                      <mat-icon>analytics</mat-icon>
+                      <span>Survey Analytics</span>
+                    </button>
+                    <button
+                      class="item-button"
+                      mat-menu-item
+                      (click)="deleteSurvey(survey.id)"
+                    >
+                      <mat-icon color="warn">delete</mat-icon>
+                      <span>Delete Survey</span>
+                    </button>
+                  </mat-menu>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </ng-container>
     </ng-container>
-  </ng-container>
+    <div class="flex justify-between items-center mb-4">
+      <button
+        mat-raised-button
+        color="secondary"
+        (click)="previousPage()"
+        [disabled]="pageNumber === 0"
+      >
+        Previous Page
+      </button>
+      <span>Page {{ pageNumber + 1 }} of {{ totalPages }}</span>
+      <button
+        mat-raised-button
+        color="secondary"
+        (click)="nextPage()"
+        [disabled]="pageNumber === totalPages - 1"
+      >
+        Next Page
+      </button>
+    </div>
+  </div>
 </div>
 
 <ng-template #loading>

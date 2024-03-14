@@ -17,10 +17,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LogComponent } from './log/log.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AdminDashboardComponent, SideNavComponent, UsersComponent, SurveysComponent, EditUserModalComponent, SurveyDialogComponent, LogComponent],
-  imports: [CommonModule, MatSidenavModule, MatProgressSpinnerModule, MatDialogModule, MatMenuModule, MatListModule, AdminDashboardRoutingModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
+  imports: [CommonModule, MatSidenavModule, MatProgressSpinnerModule, MatDialogModule, MatButtonModule, MatMenuModule, MatListModule, AdminDashboardRoutingModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
   ],
 })
 export class AdminDashboardModule {}

@@ -43,6 +43,7 @@ import { MySubmissionsViewerComponent } from './modules/survey/my-submissions-vi
 import { VerifyUserComponent } from './modules/auth/verify-user/verify-user.component';
 import { ErrorComponent } from './modules/error/error.component';
 import { DeleteConfirmationDialogComponent } from './modules/survey/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +80,7 @@ import { DeleteConfirmationDialogComponent } from './modules/survey/delete-confi
     MatMenuModule,
     FormsModule,
     MatDialogModule,
+    MatPaginatorModule, // Add MatPaginatorModule here
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyMaterialModule,

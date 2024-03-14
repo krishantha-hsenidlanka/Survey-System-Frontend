@@ -15,6 +15,9 @@ export class MySubmissionsViewerComponent implements OnInit {
   errorMessage: string = '';
   surveyDetailsMap: { [surveyId: string]: any } = {};
   surveyTitles: { [key: string]: string } = {};
+  currentPage: number = 0;
+  pageSize: number = 10; 
+  pageCount: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,31 +29,38 @@ export class MySubmissionsViewerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.getMySubmissions().subscribe(
-      (responses) => {
-        this.responses = responses;
-        this.loadSurveyDetails();
-        this.loading = false;
-      },
-      (error) => {
-        this.openSnackBar('Error fetching responses!');
-        this.loading = false;
-        if (error.status == 404) {
-          this.errorMessage = 'No responses found!';
-          this.openSnackBar('No responses found!');
-        } else {
-          this.errorMessage = 'Error fetching responses!';
+    this.loadResponses();
+  }
+
+  loadResponses(): void {
+    this.apiService
+      .getMySubmissions(this.currentPage, this.pageSize)
+      .subscribe(
+        (responses) => {
+          this.responses = responses.content || [];
+          this.pageCount = responses.totalPages;
+          this.loadSurveyDetails();
+          this.loading = false;
+        },
+        (error) => {
           this.openSnackBar('Error fetching responses!');
+          this.loading = false;
+          if (error.status == 404) {
+            this.errorMessage = 'No responses found!';
+            this.openSnackBar('No responses found!');
+          } else {
+            this.errorMessage = 'Error fetching responses!';
+            this.openSnackBar('Error fetching responses!');
+          }
         }
-      }
-    );
+      );
   }
 
   getKeys(entry: any): string[] {
     return entry ? Object.keys(entry) : [];
   }
 
-  loadSurveyDetails() {
+  loadSurveyDetails(): void {
     // Fetch survey details for each survey ID in responses
     this.responses.forEach((response) => {
       if (response.surveyId && !this.surveyDetailsMap[response.surveyId]) {
@@ -85,15 +95,20 @@ export class MySubmissionsViewerComponent implements OnInit {
     return this.surveyTitles[surveyId] || 'Unknown Survey';
   }
 
-  goToHome() {
+  goToHome(): void {
     this.router.navigate(['/home']);
   }
 
-  openSnackBar(message: string) {
+  openSnackBar(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadResponses();
   }
 }

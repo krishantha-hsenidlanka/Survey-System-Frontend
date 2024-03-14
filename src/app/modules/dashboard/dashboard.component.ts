@@ -18,6 +18,9 @@ export class DashboardComponent implements OnInit {
   currentTime: string = '';
   surveys$: Observable<any[]> | undefined;
   surveysLoaded: boolean = false;
+  pageNumber: number = 0;
+  pageSize: number = 10; 
+  totalPages: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -34,21 +37,17 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadSurveys() {
-    this.apiService.getSurveysForLoggedInUser().subscribe(
+    this.apiService.getSurveysForLoggedInUser(this.pageNumber, this.pageSize).subscribe(
       (response) => {
-        this.surveys$ = of(response as any[]);
+        this.surveys$ = of(response.content); 
+        this.totalPages = response.totalPages;
         this.surveysLoaded = true;
       },
       (error) => {
-        if (error.status === 404) {
-          this.surveys$ = of([]);
-          this.surveysLoaded = true;
-        } else {
-          this.openSnackBar('Error fetching surveys. Please try again.');
-        }
+        this.openSnackBar('Error fetching surveys. Please try again.');
       }
     );
-  }
+  }  
 
   private getUsername() {
     this.apiService.getUserDetails().subscribe(
@@ -158,5 +157,19 @@ export class DashboardComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  nextPage() {
+    if (this.pageNumber < this.totalPages - 1) {
+      this.pageNumber++;
+      this.loadSurveys();
+    }
+  }
+
+  previousPage() {
+    if (this.pageNumber > 0) {
+      this.pageNumber--;
+      this.loadSurveys();
+    }
   }
 }

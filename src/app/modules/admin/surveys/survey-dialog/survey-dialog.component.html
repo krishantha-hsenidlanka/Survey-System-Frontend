@@ -10,8 +10,17 @@
   <div *ngIf="!data.surveys.length" class="text-center text-gray-500 my-4">
     No surveys yet.
   </div>
-
+  <div class="flex justify-between items-center mx-4">
+    <button mat-raised-button color="secondary" (click)="previousPage()" [disabled]="data.pageNumber === 0">
+      Previous Page
+    </button>
+    <div>Page {{ data.pageNumber + 1 }} of {{ data.totalPages }}</div>
+    <button mat-raised-button color="secondary" (click)="nextPage()" [disabled]="data.pageNumber === data.totalPages - 1">
+      Next Page
+    </button>
+  </div>
   <div class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 p-4" *ngIf="data.surveys.length">
+    
     <ng-container *ngFor="let survey of data.surveys">
       <div class="group p-4 border border-gray-200 rounded-md transition-transform transform hover:bg-slate-200 cursor-pointer flex items-center">
         <!-- File icon on the left -->

@@ -52,4 +52,14 @@ export class SurveyDialogComponent {
       }
     });
   }
+
+   nextPage(): void {
+    this.data.nextPage();
+    this.dialog.closeAll();
+  }
+
+  previousPage(): void {
+    this.data.previousPage();
+    this.dialog.closeAll();
+  }
 }
