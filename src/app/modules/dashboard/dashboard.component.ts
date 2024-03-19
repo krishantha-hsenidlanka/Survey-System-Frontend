@@ -19,8 +19,9 @@ export class DashboardComponent implements OnInit {
   surveys$: Observable<any[]> | undefined;
   surveysLoaded: boolean = false;
   pageNumber: number = 0;
-  pageSize: number = 10; 
+  pageSize: number = 10;
   totalPages: number = 0;
+  errorState: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -37,17 +38,25 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadSurveys() {
-    this.apiService.getSurveysForLoggedInUser(this.pageNumber, this.pageSize).subscribe(
-      (response) => {
-        this.surveys$ = of(response.content); 
-        this.totalPages = response.totalPages;
-        this.surveysLoaded = true;
-      },
-      (error) => {
-        this.openSnackBar('Error fetching surveys. Please try again.');
-      }
-    );
-  }  
+    this.apiService
+      .getSurveysForLoggedInUser(this.pageNumber, this.pageSize)
+      .subscribe(
+        (response) => {
+          this.surveys$ = of(response.content);
+          this.totalPages = response.totalPages;
+          this.surveysLoaded = true;
+        },
+        (error) => {
+          if (error.status === 404) {
+            this.errorState = true;
+            this.surveysLoaded = true;
+          } else
+            this.openSnackBar(
+              'Error fetching surveys or No surveys. Please try again.'
+            );
+        }
+      );
+  }
 
   private getUsername() {
     this.apiService.getUserDetails().subscribe(

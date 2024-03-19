@@ -1,5 +1,5 @@
 <div class="container mx-auto mt-8">
-  <table class="min-w-full bg-white border border-gray-300 shadow">
+  <table class="min-w-full bg-white border border-gray-300 shadow text-center">
     <thead>
       <tr>
         <th class="py-2 px-4 border-b">#</th>
@@ -17,7 +17,7 @@
         <td class="py-2 px-4 border-b">{{ user.email }}</td>
         <td class="py-2 px-4 border-b">{{ getRoles(user) }}</td>
         <td class="py-2 px-4 border-b">{{ user.enabled ? "Yes" : "No" }}</td>
-        <td class="py-2 px-4 border-b">{{ user.registrationDate || "N/A" }}</td>
+        <td class="py-2 px-4 border-b">{{ extractDateFromString(user.registrationDate) || "N/A" }}</td>
         <td class="py-2 px-4 border-b">
           <button
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"

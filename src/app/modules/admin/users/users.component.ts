@@ -84,4 +84,10 @@ export class UsersComponent implements OnInit {
     });
     return roleNames.includes('ROLE_ADMIN') ? 'Admin' : 'User';
   }
+
+  extractDateFromString(dateString: string): string | null {
+    const regex = /^(\d{4}-\d{2}-\d{2})/;
+    const match = dateString.match(regex);
+    return match ? match[1] : null;
+  }
 }
