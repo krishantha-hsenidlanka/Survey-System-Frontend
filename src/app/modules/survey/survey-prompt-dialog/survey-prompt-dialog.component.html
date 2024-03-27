@@ -13,7 +13,9 @@
         cdkAutosizeMaxRows="5"
         class="w-full"
         [(ngModel)]="prompt"
+        required
       ></textarea>
+      <mat-error *ngIf="!prompt">Please enter a prompt</mat-error>
     </mat-form-field>
   </div>
   <div class="text-sm">
@@ -30,7 +32,7 @@
       mat-button
       color="primary"
       class="rounded-btn"
-      [disabled]="loading"
+      [disabled]="loading || !prompt"
       (click)="generateSurvey()"
     >
       <span *ngIf="loading" class="text-white text-base"
