@@ -124,7 +124,6 @@ export class SurveyCreatorComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // Execute additional code after the view has initialized
     this.modifySurveyCreatorView();
   }
 

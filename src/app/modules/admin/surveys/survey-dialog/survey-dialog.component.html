@@ -1,12 +1,10 @@
 <h2 class="text-2xl font-bold my-4 text-center">Surveys of {{ data.userId }}</h2>
 
-<!-- Display loading spinner when surveys are loading -->
 <div *ngIf="data.loading; else surveysContent">
   <mat-spinner diameter="50"></mat-spinner>
 </div>
 
 <ng-template #surveysContent>
-  <!-- Display "No surveys yet" message if there are no surveys -->
   <div *ngIf="!data.surveys.length" class="text-center text-gray-500 my-4">
     No surveys yet.
   </div>
@@ -23,18 +21,14 @@
     
     <ng-container *ngFor="let survey of data.surveys">
       <div class="group p-4 border border-gray-200 rounded-md transition-transform transform hover:bg-slate-200 cursor-pointer flex items-center">
-        <!-- File icon on the left -->
         <mat-icon class="text-2xl mb-2 text-green-500 mr-4" matListItemIcon>description</mat-icon>
 
-        <!-- Name and description on the right -->
         <div class="flex-1">
           <div class="font-semibold">{{ survey.title }}</div>
           <div class="text-gray-500 text-sm">{{ survey.description }}</div>
         </div>
 
-        <!-- Menu icon and options on the right -->
         <div class="flex items-center">
-          <!-- Add buttons for view, edit, and analytics -->
           <button mat-icon-button [matMenuTriggerFor]="menu" title="Survey Options">
             <mat-icon>more_vert</mat-icon>
           </button>

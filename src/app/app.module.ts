@@ -80,7 +80,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatMenuModule,
     FormsModule,
     MatDialogModule,
-    MatPaginatorModule, // Add MatPaginatorModule here
+    MatPaginatorModule,
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyMaterialModule,
