@@ -1,0 +1,27 @@
+<div
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutAlign.lt-md="start stretch"
+  fxLayoutGap="18px"
+  [ngClass]="{'dark-theme': themeService.isDarkTheme | async, 'light-theme': !(themeService.isDarkTheme | async)}"
+>
+  <mat-toolbar color="primary" class="header">
+    <span (click)="navigateToHome()" class="cursor-pointer">AI Survey</span>
+    <span class="flex-grow"></span>
+    <span class="flex items-center md:space-x-8 space-x-4">
+      <ng-container *ngFor="let icon of getNavigationIcons()">
+        <span class="group">
+          <button
+            (click)="icon.action()"
+            class="text-white group-hover:text-gray-300 flex items-center"
+            [ngClass]="{ 'active': icon.active }"
+
+          >
+            <mat-icon class="md:mr-2">{{ icon.icon }}</mat-icon>
+            <span class="text-center md:inline-flex hidden">{{ icon.tooltip }}</span>
+          </button>
+        </span>
+      </ng-container>
+    </span>
+  </mat-toolbar>
+</div>

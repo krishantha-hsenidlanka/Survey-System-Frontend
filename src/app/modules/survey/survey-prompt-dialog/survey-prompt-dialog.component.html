@@ -1,0 +1,44 @@
+<div class="w-auto h-auto flex flex-col items-center justify-center p-4">
+  <h2 class="mat-h2 font-bold mb-4">Generate Survey using Gemini AI</h2>
+  <div class="mb-4 w-full">
+    <p class="mat-body-1 text-gray-600">
+      Enter a prompt for generating the survey:
+    </p>
+    <mat-form-field class="w-full">
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        class="w-full"
+        [(ngModel)]="prompt"
+        required
+      ></textarea>
+      <mat-error *ngIf="!prompt">Please enter a prompt</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="text-sm">
+    <div class="text-animate" *ngIf="loading">
+      It will take some time. Please wait...
+    </div>
+    <div class="text-gray-600" *ngIf="error">
+      Sometimes AI is not able to generate the survey. Please try again...
+    </div>
+  </div>
+  <div class="flex justify-end space-x-2 w-full mt-4">
+    <button mat-button color="warn" (click)="onNoClick()">Cancel</button>
+    <button
+      mat-button
+      color="primary"
+      class="rounded-btn"
+      [disabled]="loading || !prompt"
+      (click)="generateSurvey()"
+    >
+      <span *ngIf="loading" class="text-white text-base"
+        >AI is thinking...</span
+      >
+      <span class="text-white text-base" *ngIf="!loading">Generate</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="flex flex-col items-center justify-center h-screen space-y-4">
+  <mat-icon class="text-9xl text-red-500 !w-auto !h-auto">error</mat-icon>
+  <h1 class="text-4xl font-bold text-gray-800">Something went wrong</h1>
+  <p class="text-lg text-gray-600">
+    We apologize for the inconvenience. Please try again later.
+  </p>
+  <button
+    mat-button
+    color="primary"
+    class="bg-blue-500 text-white px-4 py-2 rounded"
+    (click)="goToHome()"
+  >
+    <mat-icon> home </mat-icon>
+    Go back to Home
+  </button>
+</div>

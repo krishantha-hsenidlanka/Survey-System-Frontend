@@ -1,0 +1,63 @@
+<div class="grid place-items-center">
+  <mat-card class="md:w-96 mx-auto mt-8 w-80">
+    <div>
+      <h1 class="text-center text-2xl font-bold mt-4">Login</h1>
+    </div>
+    <div class="py-4">
+      <mat-divider></mat-divider>
+    </div>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword; $event.preventDefault()"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword"
+          >
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div *ngIf="!loading">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="w-full !py-5 rounded-btn"
+          >
+            Login
+          </button>
+        </div>
+        <div *ngIf="loading">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="w-full !py-5 !rounded-full white-spinner !bg-gray-100"
+            [disabled]="loading"
+          >
+            <mat-spinner diameter="20" spinnerColor="#fff"></mat-spinner>
+          </button>
+        </div>
+      </form>
+      <p class="mt-4">
+        Don't have an account?
+        <a routerLink="/register" class="text-blue-500">Register here</a>.
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

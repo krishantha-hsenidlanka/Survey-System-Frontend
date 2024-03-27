@@ -1,0 +1,57 @@
+<h2 class="text-2xl font-bold my-4 text-center">Surveys of {{ data.userId }}</h2>
+
+<div *ngIf="data.loading; else surveysContent">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<ng-template #surveysContent>
+  <div *ngIf="!data.surveys.length" class="text-center text-gray-500 my-4">
+    No surveys yet.
+  </div>
+  <div class="flex justify-between items-center mx-4">
+    <button mat-raised-button color="secondary" (click)="previousPage()" [disabled]="data.pageNumber === 0">
+      Previous Page
+    </button>
+    <div>Page {{ data.pageNumber + 1 }} of {{ data.totalPages }}</div>
+    <button mat-raised-button color="secondary" (click)="nextPage()" [disabled]="data.pageNumber === data.totalPages - 1">
+      Next Page
+    </button>
+  </div>
+  <div class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 p-4" *ngIf="data.surveys.length">
+    
+    <ng-container *ngFor="let survey of data.surveys">
+      <div class="group p-4 border border-gray-200 rounded-md transition-transform transform hover:bg-slate-200 cursor-pointer flex items-center">
+        <mat-icon class="text-2xl mb-2 text-green-500 mr-4" matListItemIcon>description</mat-icon>
+
+        <div class="flex-1">
+          <div class="font-semibold">{{ survey.title }}</div>
+          <div class="text-gray-500 text-sm">{{ survey.description }}</div>
+        </div>
+
+        <div class="flex items-center">
+          <button mat-icon-button [matMenuTriggerFor]="menu" title="Survey Options">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="viewSurvey(survey.id)">
+              <mat-icon>remove_red_eye</mat-icon>
+              <span>View Survey</span>
+            </button>
+            <button mat-menu-item (click)="editSurvey(survey.id)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit Survey</span>
+            </button>
+            <button mat-menu-item (click)="surveyAnalytics(survey.id)">
+              <mat-icon>analytics</mat-icon>
+              <span>Survey Analytics</span>
+            </button>
+            <button mat-menu-item (click)="deleteSurvey(survey.id)">
+              <mat-icon color="warn">delete</mat-icon>
+              <span>Delete Survey</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
